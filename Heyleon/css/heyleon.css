@@ -1,0 +1,133 @@
+﻿/* Modifications sur tous les éléments */
+input {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 3px 8px;
+	height: 30px;
+} 
+
+*[onClick], *[href] {
+	cursor: pointer;
+}
+
+
+/* Boutons personnalisés */
+button:active {
+	box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, 0.32);
+}
+button.good, button.good:active {
+	background-image: linear-gradient(#54D64F,#4CA848);
+	border-color: #369133;
+	color:#000;
+}
+div.good {
+	color:#3c763d;
+}
+button.wait {
+	background-image: none;
+	background-color: #F19520;
+	border-color: #B6692C;
+}
+button.wait:active {
+	background-image: none;
+}
+button.bad {
+	background-image: linear-gradient(#DA2B2E, #9d383a);
+	border-color: #911010;
+	color:#000;
+}
+div.bad {
+	color:#a94442;
+}
+button.bad:active {
+	background-image: linear-gradient(#DA2B2E, #9d383a);
+}
+button.simple {
+	background-image: linear-gradient(#8F8CE4,#8974BE);
+	border-color: #9488D5;
+	color:#000;
+}
+button.simple:active {
+	background-image: linear-gradient(#8F8CE4,#8974BE);
+}
+
+/* Éléments collés en ligne */
+.input-span {
+	margin-left: 4px;
+}
+	.input-span > *:first-child {
+		border-top-left-radius:5px;
+		border-bottom-left-radius:5px;
+	}
+	.input-span > *:last-child {
+		border-top-right-radius:5px;
+		border-bottom-right-radius:5px;
+	}
+	.input-span > *:not(:first-child) {
+		border-top-left-radius:0px;
+		border-bottom-left-radius:0px;
+	}
+	.input-span > *:not(:last-child) {
+		border-top-right-radius:0px;
+		border-bottom-right-radius:0px;
+	}
+	.input-span > * {
+		display:inline-block;
+		height:34px;
+		vertical-align: middle;
+		margin-left: -5px;	
+	}
+	.input-span > span {
+		background-color: #eee;
+		padding: 6px 12px;
+		border: 1px solid #ccc;
+		text-shadow: 0 1px 0 #fff;
+		font-size: 14px;
+	}
+	.input-span > button {
+		padding: 0px 12px;
+	}
+	
+/* Flip card */
+
+.flip-card {
+	width:300px;
+	height:300px;
+	margin:100px auto;
+	perspective:500px;
+	-webkit-perspective:500px;-moz-perspective:500px;-ms-perspective:500px;-o-perspective:500px;
+}
+	.flip-card:hover .flip{
+		transform: rotateX(180deg);
+		-webkit-transform: rotateX(180deg);-moz-transform: rotateX(180deg);-ms-transform: rotateX(180deg);-o-transform: rotateX(180deg);
+	}
+.flip {
+	width:300px;
+	height:300px;
+	box-shadow:0 0 15px black;
+	transform: rotateX(0deg);
+	-webkit-transform: rotateX(0deg);-moz-transform: rotateX(0deg);-ms-transform: rotateX(0deg);-o-transform: rotateX(0deg);
+	transition: all 1s ease;
+	-webkit-transition: all 1s ease;-moz-transition: all 1s ease;-ms-transition: all 1s ease;-o-transition: all 1s ease;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-ms-transform-style: preserve-3d;-o-transform-style: preserve-3d;
+}
+	.flip > div {
+		position:absolute;
+		width:300px;
+		height:300px;
+		backface-visibility:hidden;
+		-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;
+	}
+	.flip > div:last-child {
+		background:#333;
+		transform: rotateX(180deg);
+		-webkit-transform: rotateX(180deg);-moz-transform: rotateX(180deg);-ms-transform: rotateX(180deg);-o-transform: rotateX(180deg);
+	}
+		.flip > div:last-child p {
+			color:white;
+			text-shadow:0 0 1px #111;
+			font-style:italic;
+			padding-top:50px;
+			text-align:center;  	  
+		}

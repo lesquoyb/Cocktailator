@@ -1,19 +1,16 @@
-<?php
-include("php/functions.php");
-if (isSession('id')) header("Location: ".$url_begin."/general.php");
-?>
-
 <head>
 	<meta charset="utf-8">
 	<meta name="title" content="la CCR, Jeu de stratégie en ligne multi-joueur">
 	<meta name="description" content="Jeu de stratégie en ligne">
 	<meta name=viewport content="width=device-width, initial-scale=1">
 	<link type="image/png" href="Graphics/icon.png" rel="icon">
-	<?php getCss(); ?>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link href="css/bootstrap-modif.css" rel="stylesheet">
+	<link href="Heyleon/css/heyleon.css" rel="stylesheet">
+	<link href="css/chat.css" rel="stylesheet">
 	<script src="js/jquery.js"></script>
 	<script async src="js/bootstrap.min.js "></script>
-	<script async src="js/function.js "></script>
-	<script async src="dewplayer/swfobject.js"></script>
 	<script async src="js/md5.js"></script>
 	<title>La CCR</title>
 	<meta name="keywords" content="online, game, CCR, ascaze">
@@ -21,8 +18,6 @@ if (isSession('id')) header("Location: ".$url_begin."/general.php");
 </head>
 
 </body>
-
-<a href="https://plus.google.com/113769301152675255860" rel="publisher"></a>
 
 <div class="box">
 <?php
