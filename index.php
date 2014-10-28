@@ -15,6 +15,7 @@ require_once("php/functions.php");
 	<link href="Heyleon/css/heyleon.css" rel="stylesheet">
 	<link href="css/general.css" rel="stylesheet">
 	<script src="js/jquery.js"></script>
+	<script async src="js/functions.js"></script>
 	<script async src="js/bootstrap.min.js "></script>
 	<script async src="js/md5.js"></script>
 	<title>Cocktailator</title>
@@ -42,6 +43,9 @@ require_once("php/functions.php");
 		} elseif ($err == 'expire') {
 			$title_error = "Session expirée :";
 			$text_error = "Vous avez été déconnecté automatiquement, connectez-vous pour continuer.";
+		} elseif ($err == 'no_completed') {
+			$title_error = "Formulaire incomplet :";
+			$text_error = "Vous n'avez pas rempli tous les champs du formulaire1.";
 		} elseif ($err == 'disconnected') {
 			$title_error = "Authentification requise :";
 			$text_error = "Vous devez vous connecter pour accéder à cette page !";
@@ -57,7 +61,7 @@ require_once("php/functions.php");
 	if (isGet('action', $action)) {
 		if ($action == 'registered') {
 			$title_action = "Enregistrement réussi :";
-			$text_action = "Votre enregistrement a bien été pris en compte. Un mail vient d'être envoyé à l'adresse renseignée sur le formulaire.";
+			$text_action = "Votre enregistrement a bien été pris en compte.";
 		} 
 		echo '<div class="success fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><h4>'.$title_action.'</h4>'.$text_action.'</div>';
 	}
