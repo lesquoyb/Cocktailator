@@ -1,0 +1,38 @@
+body {
+	font-family: Amaranth, Verdana, serif;
+	min-width:1080px;
+	background: url("../Graphics/bg-body.png") no-repeat center fixed;
+}
+.sheet {
+	box-shadow: 6px 6px 15px #272943;
+	border-radius:8px;
+	padding: 30px;
+	margin: 20 0 50 0px;
+	background-color: #eee;
+}
+.box {
+	position:absolute;
+	width:100%;
+	top: 0;
+}
+.box > div {
+	z-index:1079;
+	margin: 10px 1%;
+	position:relative;
+	padding: 5px 10px 7px 15px;
+	border: 2px solid;
+	border-radius: 7px;
+	top: 1%;
+	width: 98%;
+}
+
+.box > .alert {
+	background-color: rgba(242, 222, 222, 0.8);
+	color: #a94442;
+	border-color: #ebccd1;
+}
+.box > .success {
+	background-color: rgba(203, 230, 196, 0.8);
+	color: #277E2E;
+	border-color: #277E2E;
+}
