@@ -1,3 +1,6 @@
+<?php
+require_once("php/functions.php");
+?>
 <head>
 	<meta charset="utf-8">
 	<meta name="title" content="la CCR, Jeu de stratégie en ligne multi-joueur">
@@ -8,11 +11,12 @@
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link href="css/bootstrap-modif.css" rel="stylesheet">
 	<link href="Heyleon/css/heyleon.css" rel="stylesheet">
+	<link href="css/general.css" rel="stylesheet">
 	<link href="css/chat.css" rel="stylesheet">
 	<script src="js/jquery.js"></script>
 	<script async src="js/bootstrap.min.js "></script>
 	<script async src="js/md5.js"></script>
-	<title>La CCR</title>
+	<title>Cocktailator</title>
 	<meta name="keywords" content="online, game, CCR, ascaze">
 	<meta name="robots" content="index, nofollow" >
 </head>
@@ -60,17 +64,13 @@ echo "</div>";
 ?>
 
 	<div style="margin:auto;width:70%;color:#fff;font-size:18px;text-shadow: 1px 1px black;">
-		<h4 style="text-align:center;font-size:20px;text-decoration:underline;">Bienvenue sur La-CCR !</h4>
-		<p>Ce site est un jeu de stratégie en ligne, en cours de développement. Vous pouvez vous y inscrire gratuitement, et profiterez d'une version Alpha en ligne.</p>
+		<h4 style="text-align:center;font-size:20px;text-decoration:underline;">Bienvenue sur Cocktailator !</h4>
+		<p>C'est un site superbe !</p>
 	</div>
 	<div class="sheet" id="enter" style="width:40%;margin:auto;margin-top:5%;">
 		<!-- REMPLISSAGE AUTOMATIQUE -->
 	</div>
-	<div style="margin:auto;width:70%;color:#fff;font-size:18px;margin-top:3%;text-shadow: 1px 1px black;">
-		<h4 style="text-align:center;font-size:20px;text-decoration:underline;">Tenez-vous à jour de l'avancement du site !</h4>
-		<p>Toutes les fonctionnalités n'ont pas encore été réalisées. Lors de la réalisation de nouvelles fonctions, il se peut que le jeu aie besoin de réinitialiser certains paramètres. Pour ne pas 
-		perdre du temps et des ressources, consultez le tableau de bord une fois connecté pour y trouver des conseils, s'il y en a.</p>
-	</div>
+
 	<script>
 		<?php if (in_array($err, array('pseudo_exist','mail_exist') ) ) echo "$('#enter').load('_index/register.php');";
 		else echo "$('#enter').load('_index/login.php');"; ?>
