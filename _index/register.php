@@ -2,7 +2,7 @@
 include("../php/functions.php");
 
 $dataBase = connect();
-$query = $dataBase->query("SELECT pl_name, pl_mail FROM player");
+$query = $dataBase->query("SELECT user_name, user_mail FROM user");
 
 while(list($name, $mail) = $query->fetch(PDO::FETCH_NUM)) {
 	if ($list_name != '') $list_name .= ',';

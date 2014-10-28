@@ -39,4 +39,15 @@ function connect(){
 		die();
 	}
 }
+
+function getMaxId($dataBase, $table, $attr) {
+	$query = $dataBase->query("SELECT ".$attr." FROM ".$table." ORDER BY ".$attr." ASC");
+	if ($query->rowCount() == 0) return 0;
+	else {
+		while( list($id) = $query->fetch(PDO::FETCH_NUM) ) {
+			$ids[] = $id;
+		}
+		return maxId($ids);
+	}
+}
 ?>
