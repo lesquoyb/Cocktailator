@@ -39,7 +39,7 @@ td a i.glyphicon {
 
 /* Ajout de propriétées hors BootStrap */
 body {
-	font-family: Verdana, serif;
+	font-family: Amaranth, Verdana, serif;
 	padding-top: 100px ; 
 	background-image:linear-gradient(#fff, #ddd);
 	min-width:1080px;
