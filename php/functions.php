@@ -9,6 +9,13 @@ session_regenerate_id();
 include(dirname(__FILE__)."/../Heyleon/php/include.php");
 
 
+//Affiche toutes les erreurs d'une requête
+function afficheErreursPDO($requete){
+	foreach($requete->errorInfo() as $key => $value){
+		echo "$key  $value  <br/>";
+	}
+}
+
 // Vérification de connexion
 function onlyRegistered($admin=false){
 	if ( !isSession('id', $id) ) {
