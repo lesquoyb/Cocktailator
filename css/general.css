@@ -9,6 +9,15 @@
 		color: #3D47BF;
 	}
 
+.middle_container {
+	padding-top:69px;
+	background-color: rgba(255, 255, 255, 0.9);
+	min-height: 500px;
+	width: calc(100% - 400px);
+	margin: auto;
+	border: 2px solid #C9B9B9;
+	box-shadow: inset 0px 0px 38px rgba(27, 100, 217, 0.43),0px 5px 90px rgba(0, 0, 0, 0.53);
+}
 
 
 body {
