@@ -5,19 +5,28 @@ include "../php/functions.php";
 include "../classes/IngredientManager.class.php";
 include '../classes/has_low_categManager.class.php';
 include '../classes/has_super_categManager.class.php';
+include '../classes/cocktailManager.class.php';
+include '../classes/has_ingredientManager.class.php';
+	
 
 $dataBase = connect();
 $ing_manager = new IngredientManager($dataBase);
 
+////////////////////////////
+// AJOUT DES INGRÉDIENTS //
+///////////////////////////
 $categories = [];
 $i = 0;
 foreach ($Hierarchie as $key => $value) {
 	$ingr = new Ingredient($i,$key);
-	//$ing_manager->insert($ingr);
+	$ing_manager->insert($ingr);
 	$categories[] = $value;
 	$i++;
 }
 
+/////////////////////////////////////////////////////////////////
+// AJOUT DES SOUS-CATÉGORIES ET SUPER-CATÉGORIES D'INGRÉDIENTS //
+/////////////////////////////////////////////////////////////////
 foreach ($categories as $key => $value) {
 
 		foreach ($value as $keyCateg => $valueCateg) {
@@ -25,51 +34,41 @@ foreach ($categories as $key => $value) {
 				$manager = new Has_low_categManager($dataBase);
 				foreach ($valueCateg as $keySous => $valueSous) {
 					$id = $ing_manager->getIdByName($valueSous);
-					//$ing = $ing_manager->selectWhere(array('ing_name' => $valueSous))[0];
-					var_dump($id);
-					echo "<br>";
-					$categ = new Has_low_categ($keySous,$id);
+					$categ = new Has_low_categ($id,$keySous);
 					$manager->insert($categ);
 				}
 			}
 			elseif ($keyCateg === 'super-categorie') {
 				$manager = new Has_super_categManager($dataBase);	
 				foreach ($valueCateg as $keySuper => $valueSuper) {
-					$categ = new Has_super_categ($keySuper,$valueSuper);
+					$id = $ing_manager->getIdByName($valueSuper);
+					$categ = new Has_super_categ($id,$keySuper);
 					$manager->insert($categ);
 				}
 			}
 	}
 }
-/*
-foreach ($Recettes as $key => $value) {
-	$titre = $value['titre'] ;
-	$ingredients = $value['ingredients'];
-	$preparation = $value['preparation'];
-	$req = "INSERT INTO cocktail (cocktail_name,cocktail_require,cocktail_step) VALUES(:titre, :ingredients, :preparation) ";
+
+
+$cockMan = new CocktailManager($dataBase);
+$has_ingMan = new Has_ingredientManager($dataBase);
+//////////////////////////////////////////////////////////////
+/// AJOUT DES COCKTAILS ET DES INGRÉDIENTS QUI LES COMPOSES //
+//////////////////////////////////////////////////////////////
+foreach ($Recettes as $keyCock => $value) {
+	
+	$cocktail = new Cocktail($keyCock,$value['titre'], $value['ingredients'],$value['preparation']);
+	$cockMan->insert($cocktail);
+
 	$index = $value["index"];
-	$query = $dataBase->prepare($req);
-	//var_dump($preparation);
-	$query->bindValue(":titre",$titre);
-	$query->bindValue(":ingredients", $ingredients);
-	$query->bindValue(":preparation", $preparation);
 
-	$cocktail = $query->execute();
+	foreach ($index as $keyIng => $valueIng) {
 
-	foreach ($index as $key => $valueIng) {
-		var_dump($key);
-		echo " ";
-		var_dump($valueIng);
-		echo "\n\r";
-		$reqIngr =  "INSERT INTO has_ingredient (id_cocktail,id_ingredient) 
-					 SELECT :cocktail, id_ingredient FROM ingredient WHERE ing_name = ':ingredient'";
-		$query = $dataBase->prepare($reqIngr);
-		$query->bindValue(":cocktail",$cocktail);
-		$query->bindValue(":ingredient", $valueIng);
-		$query->execute();
+		$has_ingredient = new Has_ingredient($keyCock,$ing_manager->getIdByName($valueIng));
+		$has_ingMan->insert($has_ingredient);
+
 	}
-
 }
-*/
+
 
 echo "cocktails ajoutés";

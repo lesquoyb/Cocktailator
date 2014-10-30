@@ -1,13 +1,12 @@
 <?php
-include_once 'Ingredient.class.php';
-include_once 'DAO.interface.php';
-include_once '../php/functions.php';
+require_once 'cocktail.class.php';
+require_once 'DAO.interface.php';
 
-class IngredientManager implements DAO{
+class CocktailManager implements DAO{
 	
 	private $_db;
 
-	public function __construct(PDO $db){
+	public function __construct($db){
 		$this->_db = $db;
 	}
 
@@ -16,11 +15,13 @@ class IngredientManager implements DAO{
 	* Insert un objet dans la bdd
 	*/
 	public function insert( $objet){
-		if ($objet instanceof Ingredient){
-			$req = "INSERT INTO ingredient (id_ingredient,ing_name) VALUES (:id,:ing_name)";
+		if ($objet instanceof Cocktail){
+			$req = "INSERT INTO cocktail (id_cocktail,cocktail_name,cocktail_require,cocktail_step) VALUES (:id,:name,:require,:step)";
 			$query = $this->_db->prepare($req);
 			$query->bindValue(":id",$objet->_id);
-			$query->bindValue(":ing_name",$objet->_name);
+			$query->bindValue(":name",$objet->_cocktail_name);
+			$query->bindValue(":require",$objet->_cocktail_require);
+			$query->bindValue(":step",$objet->_cocktail_step);
 			$query->execute();
 		}
 
@@ -31,7 +32,7 @@ class IngredientManager implements DAO{
 	* supprime un objet dans la bdd
 	*/
 	public function delete( $objet){
-		if ($objet instanceof Ingredient){
+		if ($objet instanceof Cocktail){
 
 		}
 	}
@@ -41,7 +42,7 @@ class IngredientManager implements DAO{
 	* modifie un objet dans la bdd
 	*/
 	public function change( $objetDepart, $objetFinal){
-		if (($objetDepart instanceof Ingredient) and ( $objetFinal instanceof Ingredient)){
+		if (($objetDepart instanceof Cocktail) and ( $objetFinal instanceof Cocktail)){
 			
 		}
 	}
@@ -58,12 +59,12 @@ class IngredientManager implements DAO{
 	* Renvoie l'id correspondant au nom passé en paramètre
 	*/
 	public function getIdByName($name){
-		$req = "SELECT id_ingredient FROM ingredient WHERE ing_name = :name";
+		$req = "SELECT id_Cocktail FROM cocktail WHERE cocktail_name = :name";
 		$query = $this->_db->prepare($req);
 		$query->bindValue(":name",$name);
 		$query->execute();
 		$res = $query->fetch();
-		return $res["id_ingredient"];
+		return $res["id_cocktail"];
 	}
 
 
@@ -79,14 +80,14 @@ class IngredientManager implements DAO{
 			}
 			$conditions = rtrim($conditions,"AND");
 
-			$req = "SELECT * FROM ingredient WHERE " . $conditions;
+			$req = "SELECT * FROM  cocktail WHERE " . $conditions;
 			$query = $this->_db->prepare($req);
 			foreach($criteres as $key => $value){
 				$query->bindValue(":$key",$value);
 			}
 			$query->execute();
 			foreach ($query->fetchAll() as $key => $value) {
-				$retour[] = new Ingredient($value["id_ingredient"],$value["ing_name"]);
+				$retour[] = new Cocktail($value["id_Cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"]);
 			}
 			return $retour;
 	}

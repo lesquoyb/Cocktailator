@@ -11,9 +11,11 @@ include(dirname(__FILE__)."/../Heyleon/php/include.php");
 
 //Affiche toutes les erreurs d'une requête
 function afficheErreursPDO($requete){
-	foreach($requete->errorInfo() as $key => $value){
+	$infos = $requete->errorInfo();
+	foreach($infos as $key => $value){
 		echo "$key  $value  <br/>";
 	}
+	var_export($infos, TRUE);
 }
 
 // Vérification de connexion
