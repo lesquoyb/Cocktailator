@@ -6,8 +6,8 @@ require_once("php/functions.php");
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="title" content="la CCR, Jeu de stratégie en ligne multi-joueur">
-	<meta name="description" content="Jeu de stratégie en ligne">
+	<meta name="title" content="Cocktailator, tout simplement">
+	<meta name="description" content="Recettes de cocktails en ligne">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Amaranth">
 	<link type="image/png" href="Graphics/icon.png" rel="icon">
