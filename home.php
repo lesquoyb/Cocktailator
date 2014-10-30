@@ -8,7 +8,7 @@ $cocktails = $cocktail_manager->all();
 
 
 
-see(nettoyerChaine("é'- è"));
+see(cleanString("é'- è"));
 ?>
 
 <!DOCTYPE html>
