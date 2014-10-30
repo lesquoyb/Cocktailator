@@ -60,6 +60,7 @@ class IngredientManager implements DAO{
 	*/
 	public function all(){
 		$req = "SELECT * FROM ingredient";
+		$query = $this->_db->prepare($req);
 		$query->execute();
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {

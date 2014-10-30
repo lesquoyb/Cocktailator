@@ -46,6 +46,7 @@ class Has_favorite_cocktailManager implements DAO{
 
 	public function all(){
 			$req = "SELECT * FROM has_favorite_cocktail";
+			$query = $this->_db->prepare($req);
 			$query->execute();
 			$ret = [];
 			foreach ($query->fetchAll() as $key => $value) {

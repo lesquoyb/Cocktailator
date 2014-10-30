@@ -32,8 +32,15 @@ $cocktails = $cocktail_manager->all();
 </body>
 
 <div class="middle_container">
-	Div centrale - Home
-	<?php foreach ($cocktails as $cocktail) var_dump($cocktail); ?>
+	<?php
+	$random_cocktails = [];
+	while (count($random_cocktails) != 4) {
+		$rand = rand(0, count($cocktails));
+		if (!in_array($rand, $random_cocktails)) $random_cocktails[] = $rand;
+	}
+	foreach ($random_cocktails as $key) var_dump($cocktails[$key]);
+
+	?>
 </div>
 <?php include("menu.php"); ?>
 

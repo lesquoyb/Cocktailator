@@ -61,6 +61,7 @@ class Has_ingredientManager{
 	*/
 	public function all(){
 		$req = "SELECT * FROM has_ingredient";
+		$query = $this->_db->prepare($req);
 		$query->execute();
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {

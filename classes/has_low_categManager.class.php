@@ -46,6 +46,7 @@ class Has_low_categManager {
 
 	public function all(){
 			$req = "SELECT * FROM has_low_categ";
+			$query = $this->_db->prepare($req);
 			$query->execute();
 			$ret = [];
 			foreach ($query->fetchAll() as $key => $value) {

@@ -46,6 +46,7 @@ class Has_super_categManager implements DAO{
 
 	public function all(){
 			$req = "SELECT * FROM has_super_categ";
+			$query = $this->_db->prepare($req);
 			$query->execute();
 			$ret = [];
 			foreach ($query->fetchAll() as $key => $value) {
