@@ -33,7 +33,10 @@ class CocktailManager implements DAO{
 	*/
 	public function delete( $objet){
 		if ($objet instanceof Cocktail){
-
+			$req = "DELETE FROM cocktail WHERE id_cocktail = :id ";
+			$query = $this->_db->prepare($req);
+			$query->bindValue(":id",$objet->_id);
+			$query->execute();
 		}
 	}
 
@@ -41,9 +44,16 @@ class CocktailManager implements DAO{
 	/*
 	* modifie un objet dans la bdd
 	*/
-	public function change( $objetDepart, $objetFinal){
+	public function update( $objetDepart, $objetFinal){
 		if (($objetDepart instanceof Cocktail) and ( $objetFinal instanceof Cocktail)){
-			
+			$req = "UPDATE user SET id_cocktail = :id, cocktail_name = :name, cocktail_require = :req, cocktail_step  = :step WHERE id_cocktail = :id_prem ";
+			$query = $this->_db->prepare($req);
+			$query->bindValue(":id_prem",$objetDepart->_id);
+			$query->bindValue(":id",$objetFinal->_id);
+			$query->bindValue(":name",$objetFinal->_cocktail_name);
+			$query->bindValue(":req",$objetFinal->_cocktail_step);
+			$query->bindValue(":step",$objetFinal->_cocktail_require);
+			$query->execute();
 		}
 	}
 
@@ -52,7 +62,13 @@ class CocktailManager implements DAO{
 	* renvoie tous les objet de la table
 	*/
 	public function all(){
-
+		$req = "SELECT * FROM cocktail";
+		$query->execute();
+		$ret = [];
+		foreach ($query->fetchAll() as $key => $value) {
+			$ret[] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"]);
+		}
+		return $ret;
 	}
 
 	/*
@@ -72,13 +88,12 @@ class CocktailManager implements DAO{
 	* Effectue une selection sur la table selon les critères passés en paramètre
 	*/
 	public function selectWhere(array $criteres){
-			//TODO à verifier que ça fonctionne bien
 			$conditions = "";
 			$retour = [];
 			foreach ($criteres as $key => $value) {
-				$conditions = $conditions . "$key = :$key AND";
+				$conditions = $conditions . "$key = :$key AND ";
 			}
-			$conditions = rtrim($conditions,"AND");
+			$conditions = rtrim($conditions,"AND ");
 
 			$req = "SELECT * FROM  cocktail WHERE " . $conditions;
 			$query = $this->_db->prepare($req);

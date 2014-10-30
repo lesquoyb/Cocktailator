@@ -15,7 +15,7 @@ interface DAO {
 	/*
 	* modifie un objet dans la bdd
 	*/
-	public function change($objetDepart, $objetFinal);
+	public function update($objetDepart, $objetFinal);
 
 	/*
 	* renvoie tous les objet de la table

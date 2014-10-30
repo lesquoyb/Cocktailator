@@ -31,7 +31,11 @@ class Has_ingredientManager{
 	*/
 	public function delete( $objet){
 		if ($objet instanceof Has_ingredient){
-
+			$req = "DELETE FROM has_ingredient WHERE id_ingredient = :id_ing AND id_cocktail = :id_cock";
+			$query = $this->_db->prepare($req);
+			$query->bindValue(":id_ing",$objet->_id_ingredient);
+			$query->bindValue(":id_cock",$objet->_id_cocktail);
+			$query->execute();
 		}
 	}
 
@@ -39,9 +43,15 @@ class Has_ingredientManager{
 	/*
 	* modifie un objet dans la bdd
 	*/
-	public function change( $objetDepart, $objetFinal){
+	public function update( $objetDepart, $objetFinal){
 		if (($objetDepart instanceof Has_ingredient) and ( $objetFinal instanceof Has_ingredient)){
-			
+			$req = "UPDATE has_super_categ SET id_ingredient = :id, id_cocktail = :id_cock WHERE id_ingredient = :id_prem AND id_cocktail = :id_cock_prem ";
+			$query = $this->_db->prepare($req);
+			$query->bindValue(":id_prem",$objetDepart->_id_ingredient);
+			$query->bindValue(":id_cock_prem",$objetFinal->_id_cocktail);
+			$query->bindValue(":id",$objetFinal->_id_ingredient);
+			$query->bindValue(":id_cock",$objetFinal->_id_cocktail);
+			$query->execute();
 		}
 	}
 
@@ -50,7 +60,13 @@ class Has_ingredientManager{
 	* renvoie tous les objet de la table
 	*/
 	public function all(){
-
+		$req = "SELECT * FROM has_ingredient";
+		$query->execute();
+		$ret = [];
+		foreach ($query->fetchAll() as $key => $value) {
+			$ret[] = new Has_ingredient($value["id_cocktail"],$value["id_ingredient"]);
+		}
+		return $ret;
 	}
 
 
@@ -58,13 +74,12 @@ class Has_ingredientManager{
 	* Effectue une selection sur la table selon les critères passés en paramètre
 	*/
 	public function selectWhere(array $criteres){
-			//TODO à verifier que ça fonctionne bien
 			$conditions = "";
 			$retour = [];
 			foreach ($criteres as $key => $value) {
-				$conditions = $conditions . "$key = :$key AND";
+				$conditions = $conditions . "$key = :$key AND ";
 			}
-			$conditions = rtrim($conditions,"AND");
+			$conditions = rtrim($conditions,"AND ");
 
 			$req = "SELECT * FROM  has_ingredient WHERE " . $conditions;
 			$query = $this->_db->prepare($req);
