@@ -23,7 +23,7 @@ require_once("php/functions.php");
 	<meta name="robots" content="index, nofollow" >
 </head>
 
-</body>
+<body class="index">
 
 <div class="box">
 	<?php
@@ -68,9 +68,10 @@ require_once("php/functions.php");
 	?>
 </div>
 
+<img class="welcome" src="Graphics/welcome.png" />
 
 	<div style="margin:auto;width:70%;color:#fff;font-size:18px;text-shadow: 1px 1px black;padding-top: 6%;">
-		<h4 style="text-align:center;font-size:20px;text-decoration:underline;">Bienvenue sur Cocktailator !</h4>
+		
 		<p>C'est un site superbe !</p>
 	</div>
 	<div class="sheet" id="enter" style="width:40%;margin:auto;margin-top:5%;">

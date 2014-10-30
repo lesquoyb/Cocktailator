@@ -1,12 +1,37 @@
+.nav.navbar-nav {
+	margin-top: 15px;
+	font-size: 20px;
+}
+	.nav.navbar-nav > li > a {
+		color: #6EB081;
+	}
+	.nav.navbar-nav > li > a:hover {
+		color: #3D47BF;
+	}
+
+
+
 body {
 	font-family: Amaranth, Verdana, serif;
 	min-width:1080px;
 	background: url("../Graphics/bg-body.png") no-repeat center fixed;
 }
+body.index {
+	font-family: Amaranth, Verdana, serif;
+	min-width:1080px;
+	background: url("../Graphics/index_background.png") no-repeat center fixed;
+	background-size: 100%;
+}
+.welcome {
+	margin: auto;
+	display: block;
+	margin-top: 30px;
+}
+
 .sheet {
 	box-shadow: 6px 6px 15px #272943;
 	border-radius:8px;
-	padding: 30px;
+	padding: 18px;
 	margin: 20 0 50 0px;
 	background-color: #eee;
 }
