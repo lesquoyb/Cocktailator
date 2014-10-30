@@ -20,33 +20,35 @@ $i = 0;
 foreach ($Hierarchie as $key => $value) {
 	$ingr = new Ingredient($i,$key);
 	$ing_manager->insert($ingr);
-	$categories[] = $value;
-	$i++;
+	$categories[] = array( $i => $value );
+	$i ++;
 }
 
 /////////////////////////////////////////////////////////////////
 // AJOUT DES SOUS-CATÉGORIES ET SUPER-CATÉGORIES D'INGRÉDIENTS //
 /////////////////////////////////////////////////////////////////
 foreach ($categories as $key => $value) {
-
-		foreach ($value as $keyCateg => $valueCateg) {
+	foreach ($value as $key2 => $value2) {
+		$id_ing = $key2;
+		foreach ($value2 as $keyCateg => $valueCateg) {
 			if ($keyCateg === 'sous-categorie'){
 				$manager = new Has_low_categManager($dataBase);
 				foreach ($valueCateg as $keySous => $valueSous) {
-					$id = $ing_manager->getIdByName($valueSous);
-					$categ = new Has_low_categ($id,$keySous);
+					$id_categ = $ing_manager->getIdByName($valueSous);
+					$categ = new Has_low_categ($id_ing,$id_categ);
 					$manager->insert($categ);
 				}
 			}
 			elseif ($keyCateg === 'super-categorie') {
 				$manager = new Has_super_categManager($dataBase);	
 				foreach ($valueCateg as $keySuper => $valueSuper) {
-					$id = $ing_manager->getIdByName($valueSuper);
-					$categ = new Has_super_categ($id,$keySuper);
+					$id_categ = $ing_manager->getIdByName($valueSuper);
+					$categ = new Has_super_categ($id_ing,$id_categ);
 					$manager->insert($categ);
 				}
 			}
 	}
+		}	
 }
 
 
@@ -69,6 +71,5 @@ foreach ($Recettes as $keyCock => $value) {
 
 	}
 }
-
 
 echo "cocktails ajoutés";
