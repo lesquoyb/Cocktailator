@@ -1,5 +1,10 @@
 <?php
 require_once("php/functions.php");
+require_once("classes/cocktailManager.class.php");
+
+$dataBase = connect();
+$cocktail_manager = new cocktailManager($dataBase);
+$cocktails = $cocktail_manager->all();
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +33,7 @@ require_once("php/functions.php");
 
 <div class="middle_container">
 	Div centrale - Home
+	<?php foreach ($cocktails as $cocktail) var_dump($cocktail); ?>
 </div>
 <?php include("menu.php"); ?>
 
