@@ -26,6 +26,9 @@ require_once("php/functions.php");
 
 </body>
 
+<div class="middle_container">
+	Div centrale - Home
+</div>
 <?php include("menu.php"); ?>
 
 </body>
