@@ -13,4 +13,8 @@ class Cocktail{
 		$this->_cocktail_require = $require;
 		$this->_cocktail_step = $step;
 	}
+	
+	public function resume() {
+		echo "<div class='cocktail_resume'><img src='/Cocktailator/data/Photos/Black_velvet.jpg' />".$this->_cocktail_name."</div>";
+	}
 }

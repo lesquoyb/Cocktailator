@@ -4,6 +4,8 @@ include("../php/functions.php");
 $dataBase = connect();
 $query = $dataBase->query("SELECT user_name, user_mail FROM user");
 
+$list_mail = "";
+$list_name = "";
 while(list($name, $mail) = $query->fetch(PDO::FETCH_NUM)) {
 	if ($list_name != '') $list_name .= ',';
 	$list_name .= "'".md5(trim($name))."'";

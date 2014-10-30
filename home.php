@@ -5,6 +5,10 @@ require_once("classes/cocktailManager.class.php");
 $dataBase = connect();
 $cocktail_manager = new cocktailManager($dataBase);
 $cocktails = $cocktail_manager->all();
+
+
+
+see(nettoyerChaine("é'- è"));
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +42,7 @@ $cocktails = $cocktail_manager->all();
 		$rand = rand(0, count($cocktails));
 		if (!in_array($rand, $random_cocktails)) $random_cocktails[] = $rand;
 	}
-	foreach ($random_cocktails as $key) var_dump($cocktails[$key]);
+	foreach ($random_cocktails as $key) $cocktails[$key]->resume();
 
 	?>
 </div>

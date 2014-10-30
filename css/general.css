@@ -19,6 +19,16 @@
 	box-shadow: inset 0px 0px 38px rgba(27, 100, 217, 0.43),0px 5px 90px rgba(0, 0, 0, 0.53);
 }
 
+.cocktail_resume {
+	width: 19%;
+	margin: 3%;
+	display:inline-block;
+	text-align: center;
+}
+	.cocktail_resume > img {
+		max-width:100%;
+	}
+
 
 body {
 	font-family: Amaranth, Verdana, serif;

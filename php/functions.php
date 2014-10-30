@@ -22,11 +22,11 @@ function afficheErreursPDO($requete){
 function onlyRegistered($admin=false){
 	if ( !isSession('id', $id) ) {
 		// N'est pas connecté
-		header("Location: ".$url_begin."/?error=disconnected");
+		header("Location: /Cocktailator/?error=disconnected");
 		exit;
 	} elseif ($admin && !isAdmin() ) {
 		// N'est pas admin
-		header("Location: ".$url_begin."/?error=protected");
+		header("Location: /Cocktailator/?error=protected");
 		exit;
 	}
 }
@@ -47,6 +47,12 @@ function connect(){
 		echo "Connection à MySQL impossible : ", $e->getMessage();
 		die();
 	}
+}
+
+function cleanString($str) {
+	$str= strtr(trim($str),"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn");
+	$str = preg_replace('/([^.a-z0-9]+)/i', '_', $str);
+	return $str;
 }
 
 function getMaxId($dataBase, $table, $attr) {
