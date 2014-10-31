@@ -1,5 +1,5 @@
 <?php
-require_once "Has_favorite_cocktail.class.php";
+require_once "has_favorite_cocktail.class.php";
 require_once "DAO.interface.php";
 
 class Has_favorite_cocktailManager implements DAO{
@@ -62,7 +62,6 @@ class Has_favorite_cocktailManager implements DAO{
 				$conditions = $conditions . "$key = :$key AND ";
 			}
 			$conditions = rtrim($conditions,"AND ");
-			echo $conditions;
 			$req = "SELECT * FROM has_favorite_cocktail WHERE " . $conditions;
 			$query = $this->_db->prepare($req);
 			foreach($criteres as $key => $value){

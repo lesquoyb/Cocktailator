@@ -99,7 +99,6 @@ class UserManager implements DAO{
 				$conditions = $conditions . "$key = :$key AND ";
 			}
 			$conditions = rtrim($conditions,"AND ");
-			echo $conditions;
 			$req = "SELECT * FROM user WHERE " . $conditions;
 			$query = $this->_db->prepare($req);
 			foreach($criteres as $key => $value){
@@ -120,7 +119,7 @@ class UserManager implements DAO{
 		$fav_man = new Has_favorite_cocktailManager($this->_db);
 		$cock_man = new CocktailManager($this->_db);
 		$has_fav = $fav_man->selectWhere(array('id_user' => $user->_id));
-		foreach ($has as $key => $value) {
+		foreach ($has_fav as $key => $value) {
 			$ret[] = $cock_man->selectWhere(array('id_cocktail' => $value->_id_cocktail));
 		}
 		return $ret;
