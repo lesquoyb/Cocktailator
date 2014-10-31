@@ -1,6 +1,8 @@
 <?php
 require_once 'user.class.php';
 require_once 'DAO.interface.php';
+require_once 'has_favorite_cocktailManager.class.php';
+require_once 'cocktailManager.class.php';
 
 class UserManager implements DAO{
 	
@@ -108,6 +110,20 @@ class UserManager implements DAO{
 				$retour[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"]);
 			}
 			return $retour;
+	}
+
+	/*
+	* Renvoie les cocktails favori de l'utilisateur passé en param
+	*/
+	public function favorite_cocktails($user){
+		$ret = [];
+		$fav_man = new Has_favorite_cocktailManager($this->_db);
+		$cock_man = new CocktailManager($this->_db);
+		$has_fav = $fav_man->selectWhere(array('id_user' => $user->_id));
+		foreach ($has as $key => $value) {
+			$ret[] = $cock_man->selectWhere(array('id_cocktail' => $value->_id_cocktail));
+		}
+		return $ret;
 	}
 
 }
