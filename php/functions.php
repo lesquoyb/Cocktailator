@@ -49,10 +49,8 @@ function connect(){
 	}
 }
 
-function cleanString($str) {
-	$str= strtr(trim($str),"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn");
-	$str = preg_replace('/([^.a-z0-9]+)/i', '_', $str);
-	return $str;
+function getPictureFor($name) {
+	return "/Cocktailator/data/Photos/".ucfirst(strtolower(str_replace(array(':', "'", '"', ' '), array('', '', '', '_'), stripAccents($name)))).'.jpg';
 }
 
 function getMaxId($dataBase, $table, $attr) {

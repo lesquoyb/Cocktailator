@@ -15,6 +15,6 @@ class Cocktail{
 	}
 	
 	public function resume() {
-		echo "<div class='cocktail_resume'><img src='/Cocktailator/data/Photos/Black_velvet.jpg' />".$this->_cocktail_name."</div>";
+		echo "<div class='cocktail_resume'><img src='".getPictureFor($this->_cocktail_name)."' />".$this->_cocktail_name."</div>";
 	}
 }

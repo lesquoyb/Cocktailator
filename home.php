@@ -5,10 +5,6 @@ require_once("classes/cocktailManager.class.php");
 $dataBase = connect();
 $cocktail_manager = new cocktailManager($dataBase);
 $cocktails = $cocktail_manager->all();
-
-
-
-see(cleanString("é'- è"));
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +34,7 @@ see(cleanString("é'- è"));
 <div class="middle_container">
 	<?php
 	$random_cocktails = [];
-	while (count($random_cocktails) != 4) {
+	while (count($random_cocktails) != 8) {
 		$rand = rand(0, count($cocktails));
 		if (!in_array($rand, $random_cocktails)) $random_cocktails[] = $rand;
 	}
