@@ -1,7 +1,7 @@
 <?php
 
 
-class Has_favorite_coctail{
+class Has_favorite_cocktail{
 	
 	public $_id_user;
 	public $_id_cocktail;

@@ -115,14 +115,14 @@ class UserManager implements DAO{
 	* Renvoie les cocktails favori de l'utilisateur passé en param
 	*/
 	public function favorite_cocktails($user){
-		$ret = [];
+		$ret = array();
 		$fav_man = new Has_favorite_cocktailManager($this->_db);
 		$cock_man = new CocktailManager($this->_db);
 		$has_fav = $fav_man->selectWhere(array('id_user' => $user->_id));
 		foreach ($has_fav as $key => $value) {
 			$ret[] = $cock_man->selectWhere(array('id_cocktail' => $value->_id_cocktail));
 		}
-		return $ret;
+		return $ret[0];
 	}
 
 }

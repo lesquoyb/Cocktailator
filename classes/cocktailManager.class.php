@@ -103,7 +103,7 @@ class CocktailManager implements DAO{
 			}
 			$query->execute();
 			foreach ($query->fetchAll() as $key => $value) {
-				$retour[] = new Cocktail($value["id_Cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"]);
+				$retour[] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"]);
 			}
 			return $retour;
 	}
