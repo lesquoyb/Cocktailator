@@ -34,7 +34,7 @@ $cocktails = $cocktail_manager->all();
 <div class="middle_container">
 	<?php
 	$random_cocktails = [];
-	while (count($random_cocktails) != 4) {
+	while (count($random_cocktails) != 8) {
 		$rand = rand(0, count($cocktails));
 		if (!in_array($rand, $random_cocktails)) $random_cocktails[] = $rand;
 	}
