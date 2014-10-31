@@ -5,10 +5,6 @@ require_once("classes/cocktailManager.class.php");
 $dataBase = connect();
 $cocktail_manager = new cocktailManager($dataBase);
 $cocktails = $cocktail_manager->all();
-
-
-
-see(cleanString("é'- è"));
 ?>
 
 <!DOCTYPE html>
