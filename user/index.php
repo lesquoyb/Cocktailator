@@ -5,9 +5,8 @@ onlyRegistered();
 <!DOCTYPE html>
 <html>
 	<head>
-		
-		<?php include '../links.html'; ?>
 
+		<?php include '../links.html'; ?>
 		<title><?= $_SESSION["pseudo"]?>: espace perso</title>	</head>
 
 
