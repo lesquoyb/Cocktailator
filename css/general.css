@@ -24,7 +24,6 @@
 	margin: 3%;
 	display:inline-block;
 	text-align: center;
-	border-bottom: 3px solid #5CCF9B;
 	border-radius: 15px/8px;
 	line-height: 2.4;
 }
@@ -37,13 +36,41 @@
 	}
 	.cocktail_resume .flip > div {
 		width: 100%;
+		border-bottom: 3px solid #5CCF9B;
 	}
 		.cocktail_resume .flip > div > div {
-			height: calc(100% - 25px);
+			height: calc(100% - 40px);
 			display: flex;
 		}
 		.cocktail_resume .flip > div > h5 {
 			height:25px;
+		}
+	.cocktail_resume .flip > div:last-child {
+		width: 100%;
+		border-bottom: 3px solid #3D47BF;
+		background: rgba(214, 220, 109, 0.35);
+		transform: rotateX(180deg);
+		color: #E03939;
+	}
+		.cocktail_resume .flip > div:last-child > * {
+			width: 100%;
+		}
+		.cocktail_resume .flip > div:last-child > h4 {
+			text-decoration: underline;
+			color:#3D47BF;
+		}
+		.cocktail_resume .flip > div:last-child li {
+			list-style-image : url("../Graphics/losange.png");
+			text-align: left;
+			font-size: 16px;
+			line-height: 2;
+		}
+		.cocktail_resume .flip > div:last-child > a {
+			position: absolute;
+			bottom: 0;
+			display: block;
+			white-space: nowrap;
+			left: 0;
 		}
 
 body {
