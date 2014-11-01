@@ -91,9 +91,7 @@ button.simple:active {
 /* Flip card */
 
 .flip-card {
-	width:300px;
-	height:300px;
-	margin:100px auto;
+	height:100%;
 	perspective:500px;
 	-webkit-perspective:500px;-moz-perspective:500px;-ms-perspective:500px;-o-perspective:500px;
 }
@@ -102,7 +100,6 @@ button.simple:active {
 		-webkit-transform: rotateX(180deg);-moz-transform: rotateX(180deg);-ms-transform: rotateX(180deg);-o-transform: rotateX(180deg);
 	}
 .flip {
-	width:300px;
 	height:300px;
 	box-shadow:0 0 15px black;
 	transform: rotateX(0deg);
@@ -114,7 +111,6 @@ button.simple:active {
 }
 	.flip > div {
 		position:absolute;
-		width:300px;
 		height:300px;
 		backface-visibility:hidden;
 		-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;

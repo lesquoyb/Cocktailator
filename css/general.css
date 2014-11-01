@@ -28,12 +28,23 @@
 	border-radius: 15px/8px;
 	line-height: 2.4;
 }
-	.cocktail_resume > img {
+	.cocktail_resume img {
 		max-width:100%;
 		display:block;
 		margin:auto;
+		max-width: 90%;
+		max-height: 90%;
 	}
-
+	.cocktail_resume .flip > div {
+		width: 100%;
+	}
+		.cocktail_resume .flip > div > div {
+			height: calc(100% - 25px);
+			display: flex;
+		}
+		.cocktail_resume .flip > div > h5 {
+			height:25px;
+		}
 
 body {
 	font-family: Amaranth, Verdana, serif;

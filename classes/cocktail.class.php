@@ -15,6 +15,15 @@ class Cocktail{
 	}
 	
 	public function resume() {
-		echo "<div class='cocktail_resume'><img src='".getPictureFor($this->_cocktail_name)."' />".$this->_cocktail_name."</div>";
+		echo 
+		"<div class='cocktail_resume'>
+			<div class='flip-card'><div class='flip'>
+				<div>
+					<div><img src='".getPictureFor($this->_cocktail_name)."' /></div>
+					<h5 style='height:25px;'>".$this->_cocktail_name."</h5>
+				</div>
+				<div>test</div>
+			</div></div>
+		</div>";
 	}
 }
