@@ -4,7 +4,6 @@ require_once("classes/cocktailManager.class.php");
 
 $dataBase = connect();
 $cocktail_manager = new cocktailManager($dataBase);
-$has_ingredient_manager = new has_ingredientManager($dataBase);
 $cocktails = $cocktail_manager->all();
 ?>
 
@@ -36,7 +35,7 @@ $cocktails = $cocktail_manager->all();
 	<?php
 	$random_cocktails = [];
 	while (count($random_cocktails) != 8) {
-		$rand = rand(0, count($cocktails));
+		$rand = rand(0, count($cocktails)-1);
 		if (!in_array($rand, $random_cocktails)) $random_cocktails[] = $rand;
 	}
 	foreach ($random_cocktails as $key) $cocktails[$key]->resume();
