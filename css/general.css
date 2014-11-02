@@ -5,8 +5,8 @@
 	.nav.navbar-nav > li > a {
 		color: #6EB081;
 	}
-	.nav.navbar-nav > li > a:hover {
-		color: #3D47BF;
+	.nav.navbar-nav > li > a:hover, .nav.navbar-nav > .open > a {
+		color: #3D47BF !important;
 	}
 .nav-pills > li:not(:first-child) {
 	border-left:3px solid;
@@ -108,6 +108,16 @@
 		text-align: center;
 		float: center;
 	}
+	.cocktail > span {
+		position: absolute;
+		right:	210px;
+		margin-top: -50px;
+		font-size: 16px;
+		border: 4px solid rgba(0, 0, 0, 0.28);
+		padding: 2px 5px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
 	.cocktail h2 > span {
 		background: linear-gradient(rgba(21, 159, 59, 0.7),rgba(69, 201, 96, 0.66));
 		color: #110BAA;
@@ -172,4 +182,8 @@ body.index {
 	background-color: rgba(203, 230, 196, 0.8);
 	color: #277E2E;
 	border-color: #277E2E;
+}
+
+.good {
+	color: #1A7C26;
 }

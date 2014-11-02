@@ -14,8 +14,12 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password)) {
 		$query = $dataBase->prepare("SELECT id_user FROM user WHERE user_name = ? AND user_password = ?");
 		$query->execute(array($pseudo, md5($password)));
 		if (list($id) = $query->fetch(PDO::FETCH_NUM)) {
+			$favorite = array();
+			$query = $dataBase->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$id);
+			while (list($id_cocktail) = $query->fetch(PDO::FETCH_NUM)) $favorite[] = $id_cocktail;
 			$_SESSION['pseudo'] = $pseudo;
 			$_SESSION['id'] = $id;
+			$_SESSION['favorite'] = serialize($favorite);
 		} else $err = 'password';
 	} else $err = 'login';
 
