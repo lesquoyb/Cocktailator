@@ -17,6 +17,7 @@ class Cocktail{
 	}
 	
 	public function resume() {
+		$ing ="";
 		foreach ($this->_ingredients_name as $ingredient) {
 			$ing .= "<li>".$ingredient."</li>";
 		}

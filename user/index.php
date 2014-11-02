@@ -16,7 +16,8 @@
 		
 
 		<div class="middle_container">
-			<?php include 'favoris.php'; ?>
+			<?php include 'favoris.php'; 
+				echo $user->_user_name;?>
 		</div>
 
 	</body>
