@@ -35,4 +35,16 @@ class Cocktail{
 			</div></div>
 		</div>";
 	}
+	
+	public function toHtml() {
+		echo 
+		"<div class='cocktail'>
+			<img src='".getPictureFor($this->_cocktail_name)."' />
+			<div>
+				<h3>".$this->_cocktail_name."</h3>
+			</div>
+			".str_replace('|', ' • ', $this->_cocktail_require)."
+			
+		</div>";
+	}
 }
