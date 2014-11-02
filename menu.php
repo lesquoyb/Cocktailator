@@ -12,7 +12,7 @@
 						<li><a onclick="$('.middle_container').load('/Cocktailator/list_cocktail.php');">Afficher les cocktails</a></li>
 						<li><a href="#">Proposer un Cocktail</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Mes favoris</a></li>
+						<li><a onclick="$('.middle_container').load('/Cocktailator/favoris.php');">Mes favoris</a></li>
 					</ul>
 				<li><a href="#">Ingrédients</a></li>
 			</ul>

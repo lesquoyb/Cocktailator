@@ -187,3 +187,8 @@ body.index {
 .good {
 	color: #1A7C26;
 }
+.middle_message {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 180px;
+}
