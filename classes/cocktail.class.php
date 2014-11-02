@@ -30,21 +30,34 @@ class Cocktail{
 				<div>
 					<h4>Ingrédients :</h4>
 					<div><ul>".$ing."</ul></div>
-					<a href='#'>Détailler ce cocktail</a>
+					<a onclick=\"$('.middle_container').load('/Cocktailator/cocktail.php', { id_cocktail: ".$this->_id." })\">Détailler ce cocktail</a>
 				</div>
 			</div></div>
 		</div>";
 	}
 	
 	public function toHtml() {
+		//str_replace('|', ' • ', $this->_cocktail_require)
+		$ingredients_list = explode('|', $this->_cocktail_require);
+		foreach ($ingredients_list as $ingredients) {
+			$ing .= "<li>".$ingredients."</li>";
+		}
 		echo 
 		"<div class='cocktail'>
 			<img src='".getPictureFor($this->_cocktail_name)."' />
 			<div>
-				<h3>".$this->_cocktail_name."</h3>
-			</div>
-			".str_replace('|', ' • ', $this->_cocktail_require)."
-			
+				<h2><span>".$this->_cocktail_name."</span></h2>
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+			</div><ul class='nav nav-pills nav-justified' role='tablist'>
+				".$ing."
+			</ul>
+			<p>
+				".$this->_cocktail_step."
+			</p>
 		</div>";
 	}
 }

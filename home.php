@@ -30,21 +30,14 @@ $cocktails = $cocktail_manager->all();
 </head>
 
 </body>
-
-<div class="middle_container">
-	<?php
-	$random_cocktails = [];
-	while (count($random_cocktails) != 8) {
-		$rand = rand(0, count($cocktails)-1);
-		if (!in_array($rand, $random_cocktails)) $random_cocktails[] = $rand;
-	}
-	foreach ($random_cocktails as $key) $cocktails[$key]->resume();
-	
-	
-
-	?>
-</div>
 <?php include("menu.php"); ?>
+
+	<div class="middle_container">
+		<?php
+		$random_cocktails = array_rand($cocktails, 8);
+		foreach ($random_cocktails as $key) $cocktails[$key]->resume();	
+		?>
+	</div>
 
 </body>
 </html>

@@ -63,7 +63,7 @@ class CocktailManager implements DAO{
 	* renvoie tous les objet de la table
 	*/
 	public function all(){
-		$req = "SELECT * FROM cocktail";
+		$req = "SELECT * FROM cocktail ORDER BY cocktail_name ASC";
 		$query = $this->_db->prepare($req);
 		$query->execute();
 		$ret = [];
@@ -77,7 +77,7 @@ class CocktailManager implements DAO{
 			while (list($ing_name) = $sub_query->fetch(PDO::FETCH_NUM) ) {
 				$ingredients_name[] = $ing_name;
 			}
-			$ret[] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"], $ingredients_name);
+			$ret[ $value["id_cocktail"] ] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"], $ingredients_name);
 		}
 		return $ret;
 	}
@@ -113,7 +113,12 @@ class CocktailManager implements DAO{
 			}
 			$query->execute();
 			foreach ($query->fetchAll() as $key => $value) {
-				$retour[] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"]);
+			$ingredients_name = array();
+			$sub_query = $this->_db->query("SELECT ing_name FROM ingredient i, has_ingredient hi WHERE i.id_ingredient = hi.id_ingredient AND id_cocktail = ".$value['id_cocktail']);
+			while (list($ing_name) = $sub_query->fetch(PDO::FETCH_NUM) ) {
+				$ingredients_name[] = $ing_name;
+			}
+				$retour[] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"], $ingredients_name);
 			}
 			return $retour;
 	}
