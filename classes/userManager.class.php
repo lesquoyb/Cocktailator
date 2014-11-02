@@ -120,9 +120,9 @@ class UserManager implements DAO{
 		$cock_man = new CocktailManager($this->_db);
 		$has_fav = $fav_man->selectWhere(array('id_user' => $user->_id));
 		foreach ($has_fav as $key => $value) {
-			$ret[] = $cock_man->selectWhere(array('id_cocktail' => $value->_id_cocktail));
+			$ret[] = $cock_man->selectWhere(array('id_cocktail' => $value->_id_cocktail))[0];
 		}
-		return $ret[0];
+		return $ret;
 	}
 
 }

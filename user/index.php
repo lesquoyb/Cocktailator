@@ -9,7 +9,8 @@
 <html>
 	<head>
 		<?php include '../links.html'; ?>
-		<title><?= $user->_user_name ?>: espace perso</title>	
+		<title><?= $user->_user_name ?>: espace perso</title>
+		<link rel="stylesheet" type="text/css" href="user.css">	
 	</head>
 	<body>
 		
@@ -19,4 +20,8 @@
 		</div>
 
 	</body>
+	<script type="text/javascript" src="_user.js"></script>
+	<script type="text/javascript">
+		toggle();
+	</script>
 </html>
