@@ -71,7 +71,12 @@ class UserManager implements DAO{
 		$query->execute();
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {
-			$ret[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"]);
+			$favorite_cocktails = array();
+			$sub_query = $this->_db->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$value["id_user"]);
+			while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
+				$favorite_cocktails[] = $id_cocktail;
+			}
+			$ret[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"], $favorite_cocktails);
 		}
 		return $ret;
 	}
@@ -87,6 +92,23 @@ class UserManager implements DAO{
 		$res = $query->fetch();
 		return $res["id_user"];
 	}
+	
+	public function getById($id) {
+		$req = "SELECT * FROM user WHERE id_user = :id_user";
+		$query = $this->_db->prepare($req);
+		$query->bindValue(':id_user', $id);
+		$query->execute();
+		$ret = [];
+		foreach ($query->fetchAll() as $key => $value) {
+			$favorite_cocktails = array();
+			$sub_query = $this->_db->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$id);
+			while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
+				$favorite_cocktails[] = $id_cocktail;
+			}
+			$ret[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"], $favorite_cocktails);
+		}
+		return $ret;
+	}	
 
 
 	/*
@@ -106,9 +128,30 @@ class UserManager implements DAO{
 			}
 			$query->execute();
 			foreach ($query->fetchAll() as $key => $value) {
-				$retour[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"]);
+				$favorite_cocktails = array();
+				$sub_query = $this->_db->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$value["id_user"]);
+				while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
+					$favorite_cocktails[] = $id_cocktail;
+				}
+				$retour[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"], $favorite_cocktails);
 			}
 			return $retour;
+	}
+	
+	public function addFavorite($id_user, $id_cocktail) {
+		$req = "INSERT INTO has_favorite_cocktail VALUES (".$id_user.", ".$id_cocktail.")";
+		$query = $this->_db->prepare($req);
+		//$query->bindValue(":id_user",$id_user);
+		//$query->bindValue(":id_cocktail",$id_cocktail);
+		$query->execute();
+	}
+	
+	public function removeFavorite($id_user, $id_cocktail) {
+		$req = "DELETE FROM has_favorite_cocktail WHERE id_user = :id_user AND id_cocktail = :id_cocktail";
+		$query = $this->_db->prepare($req);
+		$query->bindValue(":id_user",$id_user);
+		$query->bindValue(":id_cocktail",$id_cocktail);
+		$query->execute();
 	}
 
 	/*

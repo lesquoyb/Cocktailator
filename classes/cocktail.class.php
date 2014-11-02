@@ -30,9 +30,50 @@ class Cocktail{
 				<div>
 					<h4>Ingrédients :</h4>
 					<div><ul>".$ing."</ul></div>
-					<a href='#'>Détailler ce cocktail</a>
+					<a onclick=\"$('.middle_container').load('/Cocktailator/cocktail.php', { id_cocktail: ".$this->_id." })\">Détailler ce cocktail</a>
 				</div>
 			</div></div>
 		</div>";
+	}
+	
+	public function toHtml() {
+		$ingredients_list = explode('|', $this->_cocktail_require);
+		foreach ($ingredients_list as $ingredients) {
+			$ing .= "<li>".$ingredients."</li>";
+		}
+		$favoris = unserialize($_SESSION['favorite']);
+		if (in_array($this->_id, $favoris)) $fav_span = "<span class='good'> <span class='glyphicon glyphicon-ok'></span> Favori </span>";
+		else $fav_span = "<span> <span class='glyphicon glyphicon-plus'></span> Favori </span>";
+		echo 
+		"<div class='cocktail'>
+			<img src='".getPictureFor($this->_cocktail_name)."' />
+			".$fav_span."
+			<div>
+				<h2><span>".$this->_cocktail_name."</span></h2>
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+				<img src='/Cocktailator/Graphics/star.png' />
+			</div><ul class='nav nav-pills nav-justified' role='tablist'>
+				".$ing."
+			</ul>
+			<p>
+				".$this->_cocktail_step."
+			</p>
+		</div>
+		<script>
+			$('.cocktail > span').click(function () {
+				if ($('.cocktail > span').hasClass('good')) {
+					$.post('/Cocktailator/_cocktail/remove_favorite.php', {id_cocktail : ".$this->_id."} );
+					$('.cocktail > span').removeClass('good');
+					$('.cocktail > span > span').addClass('glyphicon-plus').removeClass('glyphicon-ok');
+				} else {
+					$.post('/Cocktailator/_cocktail/add_favorite.php', { id_cocktail : ".$this->_id."} );
+					$('.cocktail > span').addClass('good');
+					$('.cocktail > span > span').removeClass('glyphicon-plus').addClass('glyphicon-ok');
+				}
+			});
+		</script>";
 	}
 }

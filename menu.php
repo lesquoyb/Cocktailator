@@ -9,7 +9,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Cocktails <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a onclick="$('.middle_container').load('/Cocktailator/cocktail.php');">Afficher les cocktails</a></li>
+						<li><a onclick="$('.middle_container').load('/Cocktailator/list_cocktail.php');">Afficher les cocktails</a></li>
 						<li><a href="#">Proposer un Cocktail</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Mes favoris</a></li>

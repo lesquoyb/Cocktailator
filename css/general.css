@@ -5,9 +5,19 @@
 	.nav.navbar-nav > li > a {
 		color: #6EB081;
 	}
-	.nav.navbar-nav > li > a:hover {
-		color: #3D47BF;
+	.nav.navbar-nav > li > a:hover, .nav.navbar-nav > .open > a {
+		color: #3D47BF !important;
 	}
+.nav-pills > li:not(:first-child) {
+	border-left:3px solid;
+}
+.nav-pills > li {
+	text-align:center;
+	padding: 15px;
+	vertical-align: middle;
+	font-size: 16px;
+}
+	
 
 .middle_container {
 	padding-top:69px;
@@ -17,8 +27,16 @@
 	margin: auto;
 	border: 2px solid #C9B9B9;
 	box-shadow: inset 0px 0px 38px rgba(27, 100, 217, 0.43),0px 5px 90px rgba(0, 0, 0, 0.53);
+	margin-bottom:60px;
+	border-radius: 5px;
 }
 
+.test {
+	display:table-cell;
+	width:1px;
+}
+
+/* HOME */
 .cocktail_resume {
 	width: 19%;
 	margin: 3%;
@@ -49,7 +67,7 @@
 		width: 100%;
 		border-bottom: 3px solid #3D47BF;
 		background: rgba(214, 220, 109, 0.35);
-		transform: rotateX(180deg);
+		transform: rotateX(180deg) rotateZ(180deg);
 		color: #E03939;
 	}
 		.cocktail_resume .flip > div:last-child > * {
@@ -73,6 +91,48 @@
 			left: 0;
 		}
 
+/* COCKTAILS */
+.cocktail > div:first-child {
+	width: 100%;
+}
+	.cocktail > img {
+		border-bottom: 4px solid #BC8D8D;
+		border-right: 4px solid #BC8D8D;
+		border-bottom-right-radius: 20px;
+		margin: -60px 10px 10px -2px;
+		float:left;
+		height: 300px;
+	}
+	.cocktail > div {
+		margin: 60px 0px;
+		text-align: center;
+		float: center;
+	}
+	.cocktail > span {
+		position: absolute;
+		right:	210px;
+		margin-top: -50px;
+		font-size: 16px;
+		border: 4px solid rgba(0, 0, 0, 0.28);
+		padding: 2px 5px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	.cocktail h2 > span {
+		background: linear-gradient(rgba(21, 159, 59, 0.7),rgba(69, 201, 96, 0.66));
+		color: #110BAA;
+		padding: 5px 20px;
+		border-radius: 20px 5px 20px 5px;
+	}
+.cocktail > p {
+	text-indent: 60px;
+	font-size: 18px;
+	width: 100%;
+	padding: 20px 50px;
+	text-align: justify;
+	color: #0F0681;
+}
+	
 body {
 	font-family: Amaranth, Verdana, serif;
 	min-width:1080px;
@@ -122,4 +182,8 @@ body.index {
 	background-color: rgba(203, 230, 196, 0.8);
 	color: #277E2E;
 	border-color: #277E2E;
+}
+
+.good {
+	color: #1A7C26;
 }
