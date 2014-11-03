@@ -15,20 +15,26 @@ while(list($name, $mail) = $query->fetch(PDO::FETCH_NUM)) {
 script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mail.');');
 ?>
 
+	<style>
+		sup {
+			color: red;
+		}
+	</style>
+
 	<ul class="nav nav-tabs nav-justified" role="tablist">
 		<li style="cursor:pointer;"><a onclick="$('#enter').load('_index/login.php');">Connexion</a></li>
 		<li class="active"><a style="background-color:#333D6A;color:black;border: 1px solid #333D6A;">Enregistrement</a></li>
 	</ul>
 	<form action="_register.php" method="post" class="form-horizontal" style="background-color:#333D6A;padding:10px;border-radius:10px 0px 10px 10px;color:#000" role="form">
 		<div id="div_pseudo" class="form-group has-feedback">
-			<label for="pseudo" class="col-sm-3 control-label">Login</label>
+			<label for="pseudo" class="col-sm-3 control-label">Login <sup>*</sup></label>
 			<div class="col-sm-9">
 				<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo" value=' ' autocomplete=off required>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="pseudo" class="control-label"></label>
 			</div>
 		</div><div id="div_password" class="form-group has-feedback">
-			<label for="password" class="col-sm-3 control-label">Mot de passe</label>
+			<label for="password" class="col-sm-3 control-label">Mot de passe <sup>*</sup></label>
 			<div class="col-sm-9">
 				<input type="password" class="form-control" id="password" name="password" placeholder="*******" autocomplete=off required>
 				<span class="glyphicon form-control-feedback"></span>
@@ -62,12 +68,32 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="ddn" class="control-label"></label>
 			</div>
+		</div><div id="div_sex" class="form-group">
+			<label for="ddn" class="col-sm-3 control-label">Sexe</label>
+			<div class="col-sm-9">
+				<select class="form-control" id="sex" name="sex">
+					<option value=""> </option>
+					<option value="homme"> Homme </option>
+					<option value="femme"> Femme </option>
+				</select>
+			</div>
 		</div><div id="div_address" class="form-group has-feedback">
 			<label for="address" class="col-sm-3 control-label">Adresse</label>
 			<div class="col-sm-9">
-			<input type="text" class="form-control" id="address" name="address" placeholder="Adresse postale" autocomplete=off>
+				<input type="text" class="form-control" id="street" name="street" placeholder="Rue" autocomplete=off>
+				<div class="input-span">
+					<input type="text" style="width: 70px;padding: 8px 10px;" class="form-control" id="cp" name="cp" placeholder="Code p." autocomplete=off>
+					<input type="text" style="width: calc(100% - 64px);" class="form-control" id="town" name="town" placeholder="Ville" autocomplete=off>
+				</div>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="address" class="control-label"></label>
+			</div>
+		</div><div id="div_tel" class="form-group has-feedback">
+			<label for="tel" class="col-sm-3 control-label">Numéro de téléphone</label>
+			<div class="col-sm-9">
+			<input type="tel" class="form-control" id="tel" name="tel" placeholder="0312456789" autocomplete=off>
+				<span class="glyphicon form-control-feedback"></span>
+				<label for="tel" class="control-label"></label>
 			</div>
 		</div><div class="form-group" style="text-align:center;">
 			<button id="signin" type="submit" class="btn btn-default">S'enregistrer</button>
@@ -125,7 +151,7 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 		if ($(this).val() != $(this).val().trim()) $(this).val($(this).val().trim());
 		arobase = $(this).val().indexOf('@');
 		dot = $(this).val().indexOf('.');
-		if ( (mails.indexOf(calcMD5($(this).val().trim())) == -1) && (arobase != -1) && (dot != -1) ) {
+		if ( (mails.indexOf(calcMD5($(this).val().trim())) == -1) && (arobase != -1) && (dot != -1) && (arobase+1 < dot) && (dot+2 < $(this).val().length) ) {
 			$('#div_mail').addClass('has-success').removeClass('has-error');
 			$('#div_mail > span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
 			$('#div_mail >  div > label:last-child').html('');
@@ -174,8 +200,27 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 			$('#div_firstname > span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
 			lg = $(this).val().length;
 			if (lg < 3) $('#div_firstname >  div > label:last-child').html('Votre prénom doit comporter entre 3 et 50 caractères. Il vous en manque ' + (3 - lg) + '.');
-			else $('#div_firstname >  div > label:last-child').html('Votre mot de passe doit comporter entre 3 et 50 caractères. Vous devez en retirer ' + (lg - 50) + '.');
+			else $('#div_firstname >  div > label:last-child').html('Votre prénom doit comporter entre 3 et 50 caractères. Vous devez en retirer ' + (lg - 50) + '.');
 			error_firstname = true;
+		}
+		if (error_pseudo || error_mail || error_password) { $('#signin').addClass('disabled'); }
+		else { $('#signin').removeClass('disabled'); }
+	});
+	
+	$('#tel').keyup(function() {
+		if ($(this).val() != $(this).val().trim()) $(this).val($(this).val().trim());
+		if (hasMinMax($(this).val(), 9, 15)) {
+			$('#div_tel').addClass('has-success').removeClass('has-error');
+			$('#div_tel > span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+			$('#div_tel >  div > label:last-child').html('');
+			error_password = false;
+		} else {
+			$('#div_tel').addClass('has-error').removeClass('has-success');
+			$('#div_tel > span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+			lg = $(this).val().length;
+			if (lg < 10) $('#div_tel >  div > label:last-child').html('Votre numéro doit comporter entre 10 et 14 caractères. Il vous en manque ' + (10 - lg) + '.');
+			else $('#div_tel >  div > label:last-child').html('Votre numéro doit comporter entre 10 et 14 caractères. Vous devez en retirer ' + (lg - 14) + '.');
+			error_tel = true;
 		}
 		if (error_pseudo || error_mail || error_password) { $('#signin').addClass('disabled'); }
 		else { $('#signin').removeClass('disabled'); }
