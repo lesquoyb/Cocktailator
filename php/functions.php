@@ -50,7 +50,11 @@ function connect(){
 }
 
 function getPictureFor($name) {
-	return "/Cocktailator/data/Photos/".ucfirst(strtolower(str_replace(array(':', "'", '"', ' '), array('', '', '', '_'), stripAccents($name)))).'.jpg';
+	return "/Cocktailator/data/Photos/".getPictureNameFor($name);
+}
+
+function getPictureNameFor($name) {
+	return ucfirst(strtolower(str_replace(array(':', "'", '"', ' '), array('', '', '', '_'), stripAccents($name)))).'.jpg';
 }
 
 function getMaxId($dataBase, $table, $attr) {
