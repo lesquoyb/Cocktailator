@@ -1,7 +1,6 @@
 <?php
 require_once("php/functions.php");
 require_once("classes/cocktailManager.class.php");
-onlyRegistered();
 
 $dataBase = connect();
 $cocktail_manager = new cocktailManager($dataBase);
