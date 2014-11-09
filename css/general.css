@@ -54,7 +54,14 @@
 	}
 	.cocktail_resume .flip > div {
 		width: 100%;
-		border-bottom: 3px solid #5CCF9B;
+	}
+	.cocktail_resume .flip > div.favorite {
+		border-bottom: 4px solid #E6E338;
+		background: rgba(212, 207, 122, 0.19);
+	}
+	.cocktail_resume .flip > div {
+		border-bottom: 4px solid #5CCF9B;
+		background: rgba(143, 237, 132, 0.19);
 	}
 		.cocktail_resume .flip > div > div {
 			height: calc(100% - 40px);
@@ -62,6 +69,12 @@
 		}
 		.cocktail_resume .flip > div > h5 {
 			height:25px;
+		}
+		.star {
+			margin-top: 10px !important;
+			right: 6px;
+			margin-left: -20px !important;
+			width: 40px;
 		}
 	.cocktail_resume .flip > div:last-child {
 		width: 100%;

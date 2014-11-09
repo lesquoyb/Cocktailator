@@ -18,9 +18,12 @@ class Cocktail{
 	
 	public function resume() {
 		$ing ="";
+		$favoris = unserialize($_SESSION['favorite']);
 		foreach ($this->_ingredients_name as $ingredient) {
 			$ing .= "<li>".$ingredient."</li>";
 		}
+		if (in_array($this->_id, $favoris)) $favorite = " class='favorite' ";
+		else $favorite = "";
 		$dir = explode('Cocktailator', dirname(__FILE__));
 		$dir = $dir[0].'Cocktailator/';
 		if (file_exists($dir."/data/Photos/".getPictureNameFor($this->_cocktail_name)) ) $url_picture = getPictureFor($this->_cocktail_name);
@@ -28,7 +31,7 @@ class Cocktail{
 		echo 
 		"<div class='cocktail_resume'>
 			<div class='flip-card'><div class='flip'>
-				<div>
+				<div ".$favorite.">
 					<div><img src='".$url_picture."' /></div>
 					<h5 style='height:25px;'>".$this->_cocktail_name."</h5>
 				</div>

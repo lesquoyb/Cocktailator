@@ -9,10 +9,12 @@ if (isPost('id_cocktail', $id_cocktail)) {
 	unset($favorite[$id_cocktail]);
 	$_SESSION['favorite'] = serialize($favorite);
 	
-	$dataBase = connect();
-	$user_manager = new userManager($dataBase);
-	
-	$user_manager->removeFavorite($_SESSION['id'], $id_cocktail);
+	if (isSession('id', $id)) {
+		$dataBase = connect();
+		$user_manager = new userManager($dataBase);
+		
+		$user_manager->removeFavorite($id, $id_cocktail);
+	}
 }
 
 ?>
