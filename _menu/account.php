@@ -15,6 +15,7 @@ while(list($name, $mail, $phone) = $query->fetch(PDO::FETCH_NUM)) {
 	$list_phone .= "'".md5(trim($phone))."'";
 }
 script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mail.'); var phones = new Array('.$list_phone.');');
+
 ?>
 
 	<style>
@@ -22,51 +23,50 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 			color: red;
 		}
 		.form-group {
-			margin_bottom:0px;
+			margin-bottom:0px;
 		}
 	</style>
 
-<div style='width: 600px;margin: auto;margin-top: 30px;margin-bottom: 30px;border: 3px solid #6A7AE3;border-radius: 5px;background: radial-gradient(rgba(255, 255, 255, 0), rgba(31, 20, 142, 0.1));padding: 10px;'>
 	<form action="_register.php" method="post" class="form-horizontal" role="form">
 		<div id="div_pseudo" class="form-group has-feedback">
-			<label for="pseudo" class="col-sm-3 control-label">Login <sup>*</sup></label>
+			<label for="pseudo" class="col-sm-3 control-label">Login</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo" value=' ' autocomplete=off required />
+				<p class="form-control-static" type='text' id="pseudo" pinput>Pseudo</p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="pseudo" class="control-label"></label>
 			</div>
 		</div><div id="div_password" class="form-group has-feedback">
-			<label for="password" class="col-sm-3 control-label">Mot de passe <sup>*</sup></label>
+			<label for="password" class="col-sm-3 control-label">Mot de passe</label>
 			<div class="col-sm-9">
-				<input type="password" class="form-control" id="password" name="password" placeholder="*******" autocomplete=off required />
+				<p class="form-control-static" type="password" id="password" pinput>Password</p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="password" class="control-label"></label>
 			</div>
 		</div><div id="div_mail" class="form-group has-feedback">
 			<label for="mail" class="col-sm-3 control-label">E-mail</label>
 			<div class="col-sm-9">
-				<input type="email" class="form-control" id="mail" name="mail" placeholder="Adresse e-mail" autocomplete=off />
+				<p class="form-control-static" type="email" id="mail" pinput>Mail</p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="mail" class="control-label"></label>
 			</div>
 		</div><div id="div_name" class="form-group has-feedback">
 			<label for="name" class="col-sm-3 control-label">Nom</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="name" name="name" placeholder="Votre nom" autocomplete=off />
+				<p class="form-control-static" type="text" id="name" pinput>Nom<p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="name" class="control-label"></label>
 			</div>
 		</div><div id="div_firstname" class="form-group has-feedback">
 			<label for="firstname" class="col-sm-3 control-label">Prénom</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Votre prénom" autocomplete=off />
+				<p class="form-control-static" type="text" id="firstname" pinput>Prenom</p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="firstname" class="control-label"></label>
 			</div>
 		</div><div id="div_ddn" class="form-group has-feedback">
 			<label for="ddn" class="col-sm-3 control-label">Date de naissance</label>
 			<div class="col-sm-9">
-				<input type="date" class="form-control" id="ddn" name="ddn" placeholder="Votre date de naissance" autocomplete=off />
+				<p class="form-control-static" type="date" id="ddn" pinput>Ddn</p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="ddn" class="control-label"></label>
 			</div>
@@ -85,9 +85,9 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 			<label for="address" class="col-sm-3 control-label">Adresse</label>
 			<div class="col-sm-9">
 				<div class="input-span">
-					<input type="text" style="width:50%;padding: 8px 10px;" class="form-control" id="street" name="street" placeholder="Rue" autocomplete=off>
-					<input type="text" style="width: 70px;padding: 8px 10px;" class="form-control" id="cp" name="cp" placeholder="Code p." autocomplete=off>
-					<input type="text" style="width: calc(50% - 64px);padding: 8px 10px;" class="form-control" id="town" name="town" placeholder="Ville" autocomplete=off>
+					<p type="text" style="width:50%;padding: 8px 10px;" class="form-control-static" id="street" pinput>Rue</p>
+					<p type="text" style="width: 70px;padding: 8px 10px;" class="form-control-static" id="cp" pinput>CP</p>
+					<p type="text" style="width: calc(50% - 64px);padding: 8px 10px;" class="form-control-static" id="town"pinput>Ville</p>
 				</div>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="address" class="control-label"></label>
@@ -95,15 +95,12 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 		</div><div id="div_tel" class="form-group has-feedback">
 			<label for="tel" class="col-sm-3 control-label">Numéro de téléphone</label>
 			<div class="col-sm-9">
-			<input type="tel" class="form-control" id="tel" name="tel" placeholder="0312456789" autocomplete=off>
+				<p class="form-control-static" type="tel" id="tel" pinput>Telephone</p>
 				<span class="glyphicon form-control-feedback"></span>
 				<label for="tel" class="control-label"></label>
 			</div>
-		</div><div class="form-group" style="text-align:center;">
-			<button id="signin" type="submit" style="display:none;" class="btn btn-default">S'enregistrer</button>
 		</div>
 	</form>
-</div>
 	
 <script>
 	var mail_reg = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
@@ -115,6 +112,25 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 	var error_tel = false;
 	var error_ddn = false;
 	setTimeout(function() { $('#pseudo').val(''); }, 100);
+	
+	function pToInput(arg) {
+		$("[pinput]").click(function() {
+			var id = $(this).attr('id');
+			$(this).replaceWith("<input type='" + $(this).attr('type') + "' style='" + $(this).attr('style') + "' id='" + id + "' class='form-control' inputp value='" + $(this).html() +  "' />");
+			$("#" + id).focus();
+			inputToP();
+		});
+	}
+	
+	function inputToP(arg) {
+		$("[inputp]").focusout(function() {
+			$(this).replaceWith("<p type='" + $(this).attr('type') + "' style='" + $(this).attr('style') + "' id='" + $(this).attr('id') + "' class='form-control-static' pinput>" + $(this).val() + "</p>");
+			pToInput();
+		});
+	}
+	
+	pToInput();
+	inputToP();
 	
 	function canRegister() {
 		if (error_pseudo || error_mail || error_password || error_name || error_firstname || error_tel || error_ddn) { $('#signin').hide('slow'); }
