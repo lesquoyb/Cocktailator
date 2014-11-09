@@ -87,6 +87,9 @@ $cocktails = $cocktail_manager->all();
 
 	<div class="middle_container">
 		<?php
+		$cocktail_user = new userManager($dataBase);
+		var_dump($cocktail_user->getById($_SESSION['id']));
+		
 		if (in_array($err, array('login', 'password')) ) script("$('.middle_container').load('/Cocktailator/_index/login.php?error=".$err."');");
 		elseif (!in_array($err, array('', 'protected', 'disconected', 'expire')) ) script("$('.middle_container').load('/Cocktailator/_index/register.php?error=".$err."');");
 		else {

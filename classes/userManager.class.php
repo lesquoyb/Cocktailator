@@ -105,7 +105,7 @@ class UserManager implements DAO{
 			while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
 				$favorite_cocktails[] = $id_cocktail;
 			}
-			$ret[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"], $favorite_cocktails);
+			$ret[] = new User($value["id_user"],$value["user_login"], $value["user_name"], $value["user_password"], $value["user_mail"], $value["user_firstname"], $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"], $favorite_cocktails);
 		}
 		return $ret;
 	}	
