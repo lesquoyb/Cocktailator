@@ -8,10 +8,10 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password)) {
 	$dataBase = connect();
 	$user_manager = new userManager($dataBase);
 	
-	$query = $dataBase->prepare("SELECT id_user FROM user WHERE user_name = ?");
+	$query = $dataBase->prepare("SELECT id_user FROM user WHERE user_login = ?");
 	$query->execute(array($pseudo));
 	if (list($id) = $query->fetch(PDO::FETCH_NUM)) {
-		$query = $dataBase->prepare("SELECT id_user FROM user WHERE user_name = ? AND user_password = ?");
+		$query = $dataBase->prepare("SELECT id_user FROM user WHERE user_login = ? AND user_password = ?");
 		$query->execute(array($pseudo, md5($password)));
 		if (list($id) = $query->fetch(PDO::FETCH_NUM)) {
 			$favorite = array();
@@ -19,8 +19,6 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password)) {
 			while (list($id_cocktail) = $query->fetch(PDO::FETCH_NUM)) $favorite[] = $id_cocktail;
 			if (isset($_SESSION['favorite'])) {
 				$old_favorite = unserialize($_SESSION['favorite']);
-				var_dump($old_favorite);
-				var_dump($favorite);
 				foreach($old_favorite as $old) {
 					if (!in_array($old, $favorite)) {
 						$favorite[] = $old;
@@ -37,9 +35,9 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password)) {
 
 	if ($err !== '') {
 		$err = '?error='.$err;
-		header("Location: /Cocktailator/iindex.php".$err);
+		header("Location: /Cocktailator/".$err);
 	} else header("Location: /Cocktailator/");
 	
-} else header("Location: /Cocktailator/iindex.php".$err);
+} else header("Location: /Cocktailator/".$err);
 
 ?>
