@@ -1,13 +1,14 @@
 function toggle(){
 		var t = document.getElementsByClassName("toggle-down");
 		t[0].onclick = function () {
-			var obj = document.getElementById("favoris");
+			var obj = document.getElementsByClassName("toggle-down")[0];
+			var favoris = document.getElementById("favoris");
 			if(obj.className === "toggle-down"){
-				fadeOut(obj);
+				fadeOut(favoris);
 				obj.className = "toggle-up";
 			}
 			else{
-				fadeIn(obj);
+				fadeIn(favoris);
 		}
 	};
 }

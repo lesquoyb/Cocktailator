@@ -7,3 +7,8 @@ foreach ($man->favorite_cocktails($user) as $key => $value) {
 
 ?>
 </div>
+
+insert into email (champ) values (1,$variable)" 
+insert into email (champ) values (1,); select * from email--) 
+
+mysql_query("select * from products where category = 1;$_POST['products'] ")

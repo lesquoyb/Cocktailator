@@ -19,7 +19,16 @@
 
 			<div class='dropdown' style="float:right;margin-top:6px;">
 				<button class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' href='#' style='font-size:15px;width:100%;'>
-					<?php echo $_SESSION[ 'pseudo' ]; ?> <span class='caret'></span>
+					<?php 
+						if(isset($_SESSION['pseudo'])){
+							echo $_SESSION[ 'pseudo' ];
+						}
+						else{
+							?>
+							<button onclick="se_connecter();">Se connecter</button>
+							<?php
+						} 
+						?> <span class='caret'></span>
 				</button><ul class='dropdown-menu' role='menu' aria-labelledby='dLabel'>
 					<li role='presentation'><a role='menuitem' tabindex='-1' href='/Cocktailator/_logout.php'><span class="glyphicon glyphicon-off"></span> Se déconnecter</a></li>
 				</ul>
