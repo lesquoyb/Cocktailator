@@ -18,12 +18,18 @@ class Cocktail{
 	
 	public function resume() {
 		$ing ="";
-		$favoris = unserialize($_SESSION['favorite']);
+		if (isSession('favorite', $favoris)) $favoris = unserialize($favoris);
+		else $favoris = array();
 		foreach ($this->_ingredients_name as $ingredient) {
 			$ing .= "<li>".$ingredient."</li>";
 		}
-		if (in_array($this->_id, $favoris)) $favorite = " class='favorite' ";
-		else $favorite = "";
+		if (in_array($this->_id, $favoris)) {
+			$favorite = " class='favorite' ";
+			$span = "<span class='glyphicon glyphicon-star'></span>";
+		} else {
+			$favorite = "";
+			$span = "";
+		}
 		$dir = explode('Cocktailator', dirname(__FILE__));
 		$dir = $dir[0].'Cocktailator/';
 		if (file_exists($dir."/data/Photos/".getPictureNameFor($this->_cocktail_name)) ) $url_picture = getPictureFor($this->_cocktail_name);
@@ -33,7 +39,7 @@ class Cocktail{
 			<div class='flip-card'><div class='flip'>
 				<div ".$favorite.">
 					<div><img src='".$url_picture."' /></div>
-					<h5 style='height:25px;'>".$this->_cocktail_name."</h5>
+					<h5 style='height:25px;'>".$span." ".$this->_cocktail_name."</h5>
 				</div>
 				<div>
 					<h4>Ingrédients :</h4>
@@ -46,12 +52,13 @@ class Cocktail{
 	
 	public function toHtml() {
 		$ingredients_list = explode('|', $this->_cocktail_require);
+		$ing = "";
 		foreach ($ingredients_list as $ingredients) {
 			$ing .= "<li>".$ingredients."</li>";
 		}
 		$favoris = unserialize($_SESSION['favorite']);
-		if (in_array($this->_id, $favoris)) $fav_span = "<span class='good'> <span class='glyphicon glyphicon-ok'></span> Favori </span>";
-		else $fav_span = "<span> <span class='glyphicon glyphicon-plus'></span> Favori </span>";
+		if (in_array($this->_id, $favoris)) $fav_span = "<span class='good'> <span class='glyphicon glyphicon-star'></span> Favori </span>";
+		else $fav_span = "<span> <span class='glyphicon glyphicon-star-empty'></span> Favori </span>";
 		echo 
 		"<div class='cocktail'>
 			<img src='".getPictureFor($this->_cocktail_name)."' />
@@ -75,11 +82,11 @@ class Cocktail{
 				if ($('.cocktail > span').hasClass('good')) {
 					$.post('/Cocktailator/_cocktail/remove_favorite.php', {id_cocktail : ".$this->_id."} );
 					$('.cocktail > span').removeClass('good');
-					$('.cocktail > span > span').addClass('glyphicon-plus').removeClass('glyphicon-ok');
+					$('.cocktail > span > span').addClass('glyphicon-star-empty').removeClass('glyphicon-star');
 				} else {
 					$.post('/Cocktailator/_cocktail/add_favorite.php', { id_cocktail : ".$this->_id."} );
 					$('.cocktail > span').addClass('good');
-					$('.cocktail > span > span').removeClass('glyphicon-plus').addClass('glyphicon-ok');
+					$('.cocktail > span > span').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
 				}
 			});
 		</script>";

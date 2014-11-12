@@ -60,6 +60,73 @@ class UserManager implements DAO{
 			$query->execute();
 		}
 	}
+	
+	public function updateLogin( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_login = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_login);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updatePassword( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_password = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_password);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateName( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_name = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_name);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateFirstname( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_firstname = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_firstname);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateMail( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_mail = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_mail);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateBirthday( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_birthday = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_birthday);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateAddress( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_address = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_address);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateCP( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_post_code = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_post_code);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateTown( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_town = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_town);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updatePhoneNum( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_phone_num = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_phone_num);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
+	public function updateSex( $user) {
+		$query = $this->_db->prepare("UPDATE user SET user_sex = :val WHERE id_user = :id");
+		$query->bindValue(":val",$user->_user_sex);
+		$query->bindValue(":id",$user->_id);
+		$query->execute();
+	}
 
 
 	/*
@@ -105,9 +172,8 @@ class UserManager implements DAO{
 			while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
 				$favorite_cocktails[] = $id_cocktail;
 			}
-			$ret[] = new User($value["id_user"],$value["user_login"], $value["user_name"], $value["user_password"], $value["user_mail"], $value["user_firstname"], $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"], $favorite_cocktails);
+			return new User($value["id_user"],$value["user_login"], $value["user_name"], $value["user_password"], $value["user_mail"], $value["user_firstname"], $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"], $favorite_cocktails);
 		}
-		return $ret;
 	}	
 
 

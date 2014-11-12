@@ -31,4 +31,8 @@ class User{
 		$this->_user_phone_num = $phone_num;
 		$this->_favorite_cocktails = $favorite_cocktails;
 	}
+	
+	public function getPhoneNum() {
+		return $this->_user_phone_num;
+	}
 }

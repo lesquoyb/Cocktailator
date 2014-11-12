@@ -56,12 +56,12 @@
 		width: 100%;
 	}
 	.cocktail_resume .flip > div.favorite {
-		border-bottom: 4px solid #E6E338;
-		background: rgba(212, 207, 122, 0.19);
+		border-bottom: 4px solid #D7D31D;
+		background: linear-gradient(rgba(232, 232, 118, 0.15),rgba(206, 198, 59, 0.63));
 	}
 	.cocktail_resume .flip > div {
 		border-bottom: 4px solid #5CCF9B;
-		background: rgba(113, 222, 100, 0.19);
+		background: linear-gradient(rgba(113, 222, 100, 0.03),rgba(113, 222, 100, 0.3));
 	}
 		.cocktail_resume .flip > div > div {
 			height: calc(100% - 40px);
@@ -78,8 +78,8 @@
 		}
 	.cocktail_resume .flip > div:last-child {
 		width: 100%;
-		border-bottom: 3px solid #3D47BF;
-		background: rgba(61, 71, 191, 0.19);
+		border-bottom: 4px solid #3D47BF;
+		background: linear-gradient(rgba(28, 39, 172, 0.03), rgba(61, 71, 191, 0.3));
 		transform: rotateX(180deg) rotateZ(180deg);
 		color: #E03939;
 	}

@@ -107,6 +107,7 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 	
 <script>
 	var mail_reg = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
+	var tel_reg = new RegExp("^(0|\\+33|0033)[1-9]{1}[0-9]{8}$");
 	var error_pseudo = true;
 	var error_password = true;
 	var error_mail = false;
@@ -212,7 +213,7 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 	});
 	
 	$('#tel').keyup(function() {
-		if ( (phones.indexOf(calcMD5($(this).val().trim())) == -1) && hasMinMax($(this).val(), 9, 15) || ($(this).val().length == 0) ) {
+		if ( (phones.indexOf(calcMD5($(this).val().trim())) == -1) && tel_reg.test($(this).val()) ) {
 			$('#div_tel').addClass('has-success').removeClass('has-error');
 			$('#div_tel > span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
 			$('#div_tel >  div > label:last-child').html('');
@@ -222,7 +223,8 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 			$('#div_tel > span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
 			lg = $(this).val().length;
 			if (lg < 10) $('#div_tel >  div > label:last-child').html('Votre numéro doit comporter entre 10 et 14 caractères. Il vous en manque ' + (10 - lg) + '.');
-			else $('#div_tel >  div > label:last-child').html('Ce numéro a déjà été utilisé pour un autre compte.');
+			else if (phones.indexOf(calcMD5($(this).val().trim())) != -1) $('#div_tel >  div > label:last-child').html('Ce numéro a déjà été utilisé pour un autre compte.');
+			else $('#div_tel >  div > label:last-child').html('Ce numéro n\'est pas valide.');
 			error_tel = true;
 		}
 		canRegister();
