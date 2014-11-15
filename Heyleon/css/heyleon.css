@@ -134,6 +134,7 @@ button.simple:active {
 		-webkit-perspective: 600px !important;
 		-moz-perspective: 600px !important;
 		perspective: 600px !important;
+		background: rgba(255, 255, 255, 0);
 	}
 	/* -- make sure to declare a default for every property that you want animated -- */
 	/* -- general styles, including Y axis rotation -- */
@@ -158,8 +159,8 @@ button.simple:active {
 						backface-visibility: hidden !important;
 
 		/* -- transition is the magic sauce for animation -- */
-		-webkit-transition: all 1s ease-in-out !important;
-						transition: all 1s ease-in-out !important;
+		-webkit-transition: all .7s ease-in-out !important;
+						transition: all .7s ease-in-out !important;
 	}
 	.panel.flip .front {
 		z-index: 900 !important;
@@ -190,8 +191,8 @@ button.simple:active {
 						backface-visibility: hidden !important;
 
 		/* -- transition is the magic sauce for animation -- */
-		-webkit-transition: all 1s ease-in-out !important;
-						transition: all 1s ease-in-out !important;
+		-webkit-transition: all .7s ease-in-out !important;
+						transition: all .7s ease-in-out !important;
 	}
 
 	.panel.flip .back {
