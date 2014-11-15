@@ -36,18 +36,23 @@ class Cocktail{
 		else $url_picture = "/Cocktailator/Graphics/empty_cocktail.jpg";
 		echo 
 		"<div class='cocktail_resume'>
-			<div class='flip-card'><div class='flip'>
-				<div ".$favorite.">
+			<div class='hover panel'>
+				<div ".$favorite." class='front'>
 					<div><img src='".$url_picture."' /></div>
 					<h5 style='height:25px;'>".$span." ".$this->_cocktail_name."</h5>
 				</div>
-				<div>
+				<div class='back'>
 					<h4>Ingrédients :</h4>
 					<div><ul>".$ing."</ul></div>
 					<a onclick=\"$('.middle_container').load('/Cocktailator/cocktail.php', { id_cocktail: ".$this->_id." })\">Détailler ce cocktail</a>
 				</div>
-			</div></div>
-		</div>";
+			</div>
+		</div>
+		<script>		$('.hover').hover(function(){
+			$(this).addClass('flip');
+		},function(){
+			$(this).removeClass('flip');
+		});</script>";
 	}
 	
 	public function toHtml() {

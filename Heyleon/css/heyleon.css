@@ -89,7 +89,7 @@ button.simple:active {
 	}
 	
 /* Flip card */
-
+/*
 .flip-card {
 	height:100%;
 	perspective:500px;
@@ -120,10 +120,84 @@ button.simple:active {
 		transform: rotateY(180deg) rotateZ(180deg);
 		-webkit-transform: rotateY(180deg) rotateZ(180deg);-moz-transform: rotateY(180deg) rotateZ(180deg);-ms-transform: rotateY(180deg) rotateZ(180deg);-o-transform: rotateY(180deg) rotateZ(180deg);
 	}
-		.flip > div:last-child p {
+		.panel > .back p {
 			color:white;
 			text-shadow:0 0 1px #111;
 			font-style:italic;
 			padding-top:50px;
 			text-align:center;  	  
 		}
+*/
+	
+		
+	.panel {
+		-webkit-perspective: 600px !important;
+		-moz-perspective: 600px !important;
+		perspective: 600px !important;
+	}
+	/* -- make sure to declare a default for every property that you want animated -- */
+	/* -- general styles, including Y axis rotation -- */
+	.panel .front {
+		box-shadow:0 0 15px black;
+		float: none !important;
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		z-index: 900 !important;
+
+		-webkit-transform: rotateX(0deg) rotateY(0deg) !important;
+			 -moz-transform: rotateX(0deg) rotateY(0deg) !important;
+						transform: rotateX(0deg) rotateY(0deg) !important;
+
+		-webkit-transform-style: preserve-3d !important;
+			 -moz-transform-style: preserve-3d !important;
+						transform-style: preserve-3d !important;
+
+		-webkit-backface-visibility: hidden !important;
+			 -moz-backface-visibility: hidden !important;
+						backface-visibility: hidden !important;
+
+		/* -- transition is the magic sauce for animation -- */
+		-webkit-transition: all 1s ease-in-out !important;
+						transition: all 1s ease-in-out !important;
+	}
+	.panel.flip .front {
+		z-index: 900 !important;
+
+		-webkit-transform: rotateY(180deg) !important;
+			 -moz-transform: rotateY(180deg) !important;
+						transform: rotateY(180deg) !important;
+	}
+
+	.panel .back {
+		box-shadow:0 0 15px black;
+		float: none !important;
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		z-index: 800 !important;
+
+		-webkit-transform: rotateY(-180deg) !important;
+			 -moz-transform: rotateY(-179deg) !important; /* setting to 180 causes an unnatural-looking half-flip */
+						transform: rotateY(-179deg) !important;
+
+		-webkit-transform-style: preserve-3d !important;
+			 -moz-transform-style: preserve-3d !important;
+						transform-style: preserve-3d !important;
+
+		-webkit-backface-visibility: hidden !important;
+			 -moz-backface-visibility: hidden !important;
+						backface-visibility: hidden !important;
+
+		/* -- transition is the magic sauce for animation -- */
+		-webkit-transition: all 1s ease-in-out !important;
+						transition: all 1s ease-in-out !important;
+	}
+
+	.panel.flip .back {
+		z-index: 1000 !important;
+
+		-webkit-transform: rotateX(0deg) rotateY(0deg) !important;
+			 -moz-transform: rotateX(0deg) rotateY(0deg) !important;
+						transform: rotateX(0deg) rotateY(0deg) !important;
+	}

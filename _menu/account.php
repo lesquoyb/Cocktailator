@@ -88,7 +88,6 @@ script('var names = new Array('.$list_name.'); var mails = new Array('.$list_mai
 			<label for="ddn" class="col-sm-3 control-label">Sexe</label>
 			<div class="col-sm-9">
 				<select class="form-control" id="sex" name="sex">
-					<option value=""> </option>
 					<option value="homme"> Homme </option>
 					<option value="femme"> Femme </option>
 				</select>
