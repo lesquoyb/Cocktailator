@@ -1,6 +1,5 @@
 <?php
 require_once 'cocktail.class.php';
-require_once 'has_ingredientManager.class.php';
 require_once 'DAO.interface.php';
 
 class CocktailManager implements DAO{
@@ -112,6 +111,7 @@ class CocktailManager implements DAO{
 				$query->bindValue(":$key",$value);
 			}
 			$query->execute();
+			$hiMan = new IngredientManager($_db);
 			foreach ($query->fetchAll() as $key => $value) {
 			$ingredients_name = array();
 			$sub_query = $this->_db->query("SELECT ing_name FROM ingredient i, has_ingredient hi WHERE i.id_ingredient = hi.id_ingredient AND id_cocktail = ".$value['id_cocktail']);

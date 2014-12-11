@@ -8,16 +8,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php include '../links.html'; ?>
+		
 		<title><?= $user->_user_name ?>: espace perso</title>
 		<link rel="stylesheet" type="text/css" href="user.css">	
 	</head>
 	<body>
 		
 
-		<div class="middle_container">
+		<div class="">
 			<?php include 'favoris.php'; 
-				echo $user->_user_name;?>
+				echo $user->_user_name;
+				var_dump($user);
+			?>
+
 		</div>
 
 	</body>

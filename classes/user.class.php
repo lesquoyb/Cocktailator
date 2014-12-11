@@ -14,9 +14,8 @@ class User{
 	public $_user_post_code;
 	public $_user_town;
 	public $_user_phone_num;
-	public $_favorite_cocktails;
 
-	public function __construct($id, $login, $name, $pass, $mail, $firstname, $sex, $birthday, $address, $post_code, $town, $phone_num, $favorite_cocktails){
+	public function __construct($id, $login, $pass,  $name = NULL, $mail= NULL, $firstname =NULL, $sex =NULL, $birthday =NULL, $address =NULL, $post_code =NULL, $town =NULL, $phone_num =NULL){
 		$this->_id = $id;
 		$this->_user_login = $login;
 		$this->_user_name = $name;
@@ -29,7 +28,6 @@ class User{
 		$this->_user_post_code = $post_code;
 		$this->_user_town = $town;
 		$this->_user_phone_num = $phone_num;
-		$this->_favorite_cocktails = $favorite_cocktails;
 	}
 	
 	public function getPhoneNum() {

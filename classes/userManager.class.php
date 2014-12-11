@@ -1,7 +1,6 @@
 <?php
 require_once 'user.class.php';
 require_once 'DAO.interface.php';
-require_once 'has_favorite_cocktailManager.class.php';
 require_once 'cocktailManager.class.php';
 
 class UserManager implements DAO{
@@ -19,13 +18,10 @@ class UserManager implements DAO{
 	*/
 	public function insert( $objet){
 		if ($objet instanceof User){
-			$req = "INSERT INTO user VALUES (:id,:name,:pass,:mail)";
+			$req = "INSERT INTO user VALUES ( $objet->_id , $objet->_user_login ,$objet->_user_password, $objet->_user_name, 
+											$objet->_user_mail,$objet->_user_firstname,$objet->_user_sex,,$objet->_user_birthday,
+											$objet->_user_address,$objet->_user_post_code,$objet->_user_town,$objet->_user_phone_num)";
 			$query = $this->_db->prepare($req);
-			$query->bindValue(":id",$objet->_id);
-			$query->bindValue(":name",$objet->_user_name);
-			$query->bindValue(":pass",$objet->_user_password);
-			$query->bindValue(":mail",$objet->_user_mail);
-
 			$query->execute();
 		}
 
@@ -50,14 +46,17 @@ class UserManager implements DAO{
 	*/
 	public function update( $objetDepart, $objetFinal){
 		if (($objetDepart instanceof User) and ( $objetFinal instanceof User)){
-			$req = "UPDATE user SET id_user = :id, user_name = :name, user_password = :pass, user_mail = :mail WHERE id_user = :id_prem ";
+			delete($objetDepart);
+			insert($objetFinal);
+			/*
+			$req = "UPDATE user SET id_user = $objetFinal->_id ,user_login = $objetFinal->login ,user_password = $objetFinal->_user_password, user_name = $objetFinal->_user_name, 
+											 user_mail = $objetFinal->_user_mail, user_firstname = $objetFinal->_user_firstname, user_sex = $objetFinal->_user_sex, user_birthday = $objetFinal->_user_birthday,
+											 user_address = $objetFinal->_user_address , user_post_code = $objetFinal->_user_post_code , user_town = $objetFinal->_user_town , user_phone_num = $objetFinal->_user_phone_num WHERE id_user = :id_prem ";
+			
 			$query = $this->_db->prepare($req);
 			$query->bindValue(":id_prem",$objetDepart->_id);
-			$query->bindValue(":id",$objetFinal->_id);
-			$query->bindValue(":name",$objetFinal->_user_name);
-			$query->bindValue(":pass",$objetFinal->_user_password);
-			$query->bindValue(":mail",$objetFinal->_user_mail);
 			$query->execute();
+			*/
 		}
 	}
 	
@@ -138,12 +137,8 @@ class UserManager implements DAO{
 		$query->execute();
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {
-			$favorite_cocktails = array();
-			$sub_query = $this->_db->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$value["id_user"]);
-			while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
-				$favorite_cocktails[] = $id_cocktail;
-			}
-			$ret[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"], $favorite_cocktails);
+			$ret[] = new User($value["id_user"],$value["user_login"], $value["user_password"], $value["user_name"],$value["user_mail"],$value["user_firstname"],
+							  $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"] );
 		}
 		return $ret;
 	}
@@ -165,15 +160,9 @@ class UserManager implements DAO{
 		$query = $this->_db->prepare($req);
 		$query->bindValue(':id_user', $id);
 		$query->execute();
-		$ret = [];
-		foreach ($query->fetchAll() as $key => $value) {
-			$favorite_cocktails = array();
-			$sub_query = $this->_db->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$id);
-			while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
-				$favorite_cocktails[] = $id_cocktail;
-			}
-			return new User($value["id_user"],$value["user_login"], $value["user_name"], $value["user_password"], $value["user_mail"], $value["user_firstname"], $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"], $favorite_cocktails);
-		}
+		$value = $query->fetchAll()[0];
+		return  new User($value["id_user"],$value["user_login"], $value["user_password"], $value["user_name"],$value["user_mail"],$value["user_firstname"],
+						  $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"] );
 	}	
 
 
@@ -194,12 +183,8 @@ class UserManager implements DAO{
 			}
 			$query->execute();
 			foreach ($query->fetchAll() as $key => $value) {
-				$favorite_cocktails = array();
-				$sub_query = $this->_db->query("SELECT id_cocktail FROM has_favorite_cocktail WHERE id_user = ".$value["id_user"]);
-				while (list($id_cocktail) = $sub_query->fetch(PDO::FETCH_NUM)) {
-					$favorite_cocktails[] = $id_cocktail;
-				}
-				$retour[] = new User($value["id_user"],$value["user_name"],$value["user_password"],$value["user_mail"], $favorite_cocktails);
+				$retour[] =new User($value["id_user"],$value["user_login"], $value["user_password"], $value["user_name"],$value["user_mail"],$value["user_firstname"],
+						 		    $value["user_sex"], $value["user_birthday"], $value["user_address"], $value["user_post_code"], $value["user_town"], $value["user_phone_num"] );
 			}
 			return $retour;
 	}
@@ -225,11 +210,17 @@ class UserManager implements DAO{
 	*/
 	public function favorite_cocktails($user){
 		$ret = array();
-		$fav_man = new Has_favorite_cocktailManager($this->_db);
-		$cock_man = new CocktailManager($this->_db);
-		$has_fav = $fav_man->selectWhere(array('id_user' => $user->_id));
-		foreach ($has_fav as $key => $value) {
-			$ret[] = $cock_man->selectWhere(array('id_cocktail' => $value->_id_cocktail))[0];
+		$req = "SELECT * FROM has_favorite_cocktail h,cocktail c WHERE id_user =  $user->_id AND h.id_cocktail = c.id_cocktail" ;// has_favorite_cocktail VALUES (".$id_user.", ".$id_cocktail.")";
+		$query = $this->_db->prepare($req);
+		$query->execute();
+		foreach ($query->fetchAll() as $key => $value) {
+			$ing = [];
+			$sub_query = $this->_db->prepare("SELECT id_ingredient, ing_name FROM ingredient i, has_ingredient h WHERE h.id_ingredient = i.id_ingredient AND id_cocktail = ".$value["id_cocktail"] );
+			$sub_query->execute();
+			foreach ($sub_query->fetchAll() as $skey => $svalue) {
+				$ing[] = new Ingredient($svalue["id_ingredient"], $svalue["ing_name"]);
+			}
+			$ret[] =new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"],$ing);
 		}
 		return $ret;
 	}
