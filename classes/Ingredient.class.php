@@ -1,4 +1,5 @@
 <?php
+include_once 'cocktailManager.class.php';
 
 class Ingredient {
 
@@ -31,35 +32,34 @@ class Ingredient {
 			return $res;
 		} else return array($this->_id);
 	}
-
-
-	public static function dessinerEnfants(Ingredient $arbre){
-		echo " <ul class='" . ( ($arbre->_racine) ? "racine" : "sous_menus" ) . " '>";
-		if ($arbre->_enfants != NULL){
-			foreach ($arbre->_enfants as $key => $value) {
-				echo "<li class='titre_menu' ><a href='#' id_ing='".$value->_id."'>";
-				echo $value->_name;
-				echo "</a>";
-				Ingredient::dessinerEnfants($value);
-				echo "</li>";
-			}
+	
+	public function drawHierarchy($all) {
+		$test = "";
+		$ids = "";
+		if (count($this->_parents[0]) != 0) $parent_id = $this->_parents[0];
+		else $parent_id = -1;
+		while ($parent_id != -1) {
+			$test = $all[$parent_id]->_name.";".$test;
+			$ids = $parent_id.";".$ids;
+			if (count($all[$parent_id]->_parents[0]) != 0) $parent_id = $all[$parent_id]->_parents[0];
+			else $parent_id = -1;
 		}
-		echo "</ul>";
-
-	}
-
-	public function toHTML(){
-		?>
-			<div class="ingredient">
-				<h4 id_ing="<?= $this->_id;?>" ><?= $this->_name;?> </h4>
-				<div class="enfants">
-					<?php Ingredient::dessinerEnfants($this); ?>
-				</div>
-
-			</div>
-		<?php
+		$test = explode(";", $test);
+		$ids = explode(";", $ids);
+		
+		echo '<ol class="breadcrumb">';
+		for ($i = 0; $i < count($test) -1; $i++) echo '<li><a onclick=\'$(".middle_container").load("/Cocktailator/ingredients.php", {id_ing : '.$ids[$i].'});\'>'.$test[$i].'</a></li>';
+		echo '<li class="active">'.$this->_name.'</li></ol>';
 	}
 	
-
+	public function toHtml($all) {
+		$this->drawHierarchy($all, $this->_id);
+		echo "<ul class='nav nav-pills nav-justified nav_ingredients' role='tablist'>";			
+		foreach($all[$this->_id]->_enfants as $id_child) echo '<li><a onclick=\'$(".middle_container").load("/Cocktailator/ingredients.php", {id_ing : '.$id_child.'});\'>'.$all[$id_child]->_name.'</a></li>';
+		echo "</ul>";
+		$cocMan = new cocktailManager(connect());
+		$cocktails = $cocMan->allContainingIngredients($all[$this->_id]->getLowerElement($all));
+		foreach ($cocktails as $cocktail) $cocktail->resume();
+	}
 
 }
