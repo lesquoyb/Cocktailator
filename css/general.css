@@ -58,7 +58,7 @@
 		height:100%
 
 	}
-	.cocktail_resume .panel .favorite {
+	.cocktail_resume .panel > .front.favorite {
 		border-bottom: 4px solid #D7D31D;
 		background: linear-gradient(rgba(232, 232, 118, 0.15),rgba(206, 198, 59, 0.63));
 	}

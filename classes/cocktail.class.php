@@ -24,10 +24,10 @@ class Cocktail{
 			$ing .= "<li>".$ingredient."</li>";
 		}
 		if (in_array($this->_id, $favoris)) {
-			$favorite = " class='favorite' ";
+			$favorite = " class='front favorite' ";
 			$span = "<span class='glyphicon glyphicon-star'></span>";
 		} else {
-			$favorite = "";
+			$favorite = " class='front' ";
 			$span = "";
 		}
 		$dir = explode('Cocktailator', dirname(__FILE__));
