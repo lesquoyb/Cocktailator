@@ -48,15 +48,6 @@ class UserManager implements DAO{
 		if (($objetDepart instanceof User) and ( $objetFinal instanceof User)){
 			delete($objetDepart);
 			insert($objetFinal);
-			/*
-			$req = "UPDATE user SET id_user = $objetFinal->_id ,user_login = $objetFinal->login ,user_password = $objetFinal->_user_password, user_name = $objetFinal->_user_name, 
-											 user_mail = $objetFinal->_user_mail, user_firstname = $objetFinal->_user_firstname, user_sex = $objetFinal->_user_sex, user_birthday = $objetFinal->_user_birthday,
-											 user_address = $objetFinal->_user_address , user_post_code = $objetFinal->_user_post_code , user_town = $objetFinal->_user_town , user_phone_num = $objetFinal->_user_phone_num WHERE id_user = :id_prem ";
-			
-			$query = $this->_db->prepare($req);
-			$query->bindValue(":id_prem",$objetDepart->_id);
-			$query->execute();
-			*/
 		}
 	}
 	
@@ -190,10 +181,8 @@ class UserManager implements DAO{
 	}
 	
 	public function addFavorite($id_user, $id_cocktail) {
-		$req = "INSERT INTO has_favorite_cocktail VALUES (".$id_user.", ".$id_cocktail.")";
+		$req = "INSERT INTO has_favorite_cocktail VALUES ($id_user , $id_cocktail )";
 		$query = $this->_db->prepare($req);
-		//$query->bindValue(":id_user",$id_user);
-		//$query->bindValue(":id_cocktail",$id_cocktail);
 		$query->execute();
 	}
 	
@@ -210,7 +199,7 @@ class UserManager implements DAO{
 	*/
 	public function favorite_cocktails($user){
 		$ret = array();
-		$req = "SELECT * FROM has_favorite_cocktail h,cocktail c WHERE id_user =  $user->_id AND h.id_cocktail = c.id_cocktail" ;// has_favorite_cocktail VALUES (".$id_user.", ".$id_cocktail.")";
+		$req = "SELECT * FROM has_favorite_cocktail h,cocktail c WHERE id_user =  $user->_id AND h.id_cocktail = c.id_cocktail" ;
 		$query = $this->_db->prepare($req);
 		$query->execute();
 		foreach ($query->fetchAll() as $key => $value) {

@@ -67,10 +67,6 @@ class CocktailManager implements DAO{
 		$query->execute();
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {
-			/*$has_ingredient_manager = new has_ingredientManager($this->_db);
-			$ingredient_manager = new IngredientManager($this->_db);
-			$cond = array( 'id_cocktail' => $value["id_cocktail"] );
-			$ingredients = $has_ingredient_manager->selectWhere($cond);*/
 			$ingredients_name = array();
 			$sub_query = $this->_db->query("SELECT ing_name FROM ingredient i, has_ingredient hi WHERE i.id_ingredient = hi.id_ingredient AND id_cocktail = ".$value['id_cocktail']);
 			while (list($ing_name) = $sub_query->fetch(PDO::FETCH_NUM) ) {

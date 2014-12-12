@@ -1,7 +1,7 @@
 <?php
 include_once 'Ingredient.class.php';
 include_once 'DAO.interface.php';
-include_once '../php/functions.php';
+require_once (dirname(__FILE__) .'/../php/functions.php');
 
 class IngredientManager implements DAO{
 	
@@ -103,6 +103,55 @@ class IngredientManager implements DAO{
 				$retour[] = new Ingredient($value["id_ingredient"],$value["ing_name"]);
 			}
 			return $retour;
+	}
+
+
+
+
+	/*
+	*	Renvoie la liste des ingrédients qui compose un ingrédient
+	*/
+	public function isComposedBy(){
+		$ret = [];
+		$query = $this->_db->prepare("SELECT * FROM ingredient i, has_low_categ h WHERE h.id_ingredient = i.id_ingredient AND h.id_ingredient = $this->_id");
+		$query->execute();
+		foreach ($query->fetchAll() as $key => $value) {
+			$ret[] = new Ingredient($value["id_ingredient"],$value["ing_name"]);
+		}
+		return $ret;
+	}
+
+
+
+
+	public static function getHierarchy($db){
+		$query = $db->prepare("SELECT * FROM ingredient");
+		$query->execute();
+		$hier = [];
+		$ret = [];
+		foreach ($query->fetchAll() as $key => $value) {
+			$hier[$value["id_ingredient"]] = new Ingredient($value["id_ingredient"],$value["ing_name"],NULL,NULL);
+		}
+		$query = $db->prepare("SELECT h.id_ingredient,h.id_low_categ,i.ing_name FROM has_low_categ h,ingredient i WHERE h.id_low_categ = i.id_ingredient");
+		$query->execute();
+		foreach ($query->fetchAll() as $key => $value) {
+		 $hier[$value["id_ingredient"]]->_enfants[] = $hier[$value["id_low_categ"]];
+		//	unset($ret[$value["id_ingredient"]]);
+		}
+		$query = $db->prepare("SELECT h.id_ingredient,h.id_super_categ,i.ing_name FROM has_super_categ h,ingredient i WHERE h.id_super_categ = i.id_ingredient");
+		$query->execute();
+		foreach ($query->fetchAll() as $key => $value) {
+				$hier[$value["id_super_categ"]]->_enfants[] = $hier[$value["id_ingredient"]];//addParent($hier[$value["id_super_categ"]]);
+		}
+
+		foreach ($hier as $key => $value) {
+			if($value->_enfants == NULL){
+				$ret[] = $value;
+			}
+		}
+		//var_dump($ret);
+		return $ret;
+		//return $ret;
 	}
 
 }
