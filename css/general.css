@@ -36,6 +36,11 @@
 	width:1px;
 }
 
+.sous_menus {
+	-webkit-padding-start: 17px;
+}
+
+
 /* HOME */
 .cocktail_resume {
 	width: 18%;

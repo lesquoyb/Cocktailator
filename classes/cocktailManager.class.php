@@ -77,6 +77,23 @@ class CocktailManager implements DAO{
 		}
 		return $ret;
 	}
+	
+	public function allContainingIngredients($id_ing) {
+		$condition = "id_ingredient = ".join(" OR id_ingredient = ", $id_ing);
+		$req = "SELECT * FROM cocktail c, has_ingredient hi WHERE hi.id_cocktail = c.id_cocktail AND (".$condition.") ORDER BY cocktail_name ASC";
+		$query = $this->_db->prepare($req);
+		$query->execute();
+		$ret = [];
+		foreach ($query->fetchAll() as $key => $value) {
+			$ingredients_name = array();
+			$sub_query = $this->_db->query("SELECT ing_name FROM ingredient i, has_ingredient hi WHERE i.id_ingredient = hi.id_ingredient AND id_cocktail = ".$value['id_cocktail']);
+			while (list($ing_name) = $sub_query->fetch(PDO::FETCH_NUM) ) {
+				$ingredients_name[] = $ing_name;
+			}
+			$ret[ $value["id_cocktail"] ] = new Cocktail($value["id_cocktail"],$value["cocktail_name"],$value["cocktail_require"],$value["cocktail_step"], $ingredients_name);
+		}
+		return $ret;
+	}
 
 	/*
 	* Renvoie l'id correspondant au nom passé en paramètre

@@ -1,6 +1,7 @@
 <?php
 include_once 'Ingredient.class.php';
 include_once 'DAO.interface.php';
+include_once 'cocktailManager.class.php';
 require_once (dirname(__FILE__) .'/../php/functions.php');
 
 class IngredientManager implements DAO{
@@ -64,7 +65,17 @@ class IngredientManager implements DAO{
 		$query->execute();
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {
-			$ret[] = new Ingredient($value["id_ingredient"],$value["ing_name"]);
+			$ret[$value["id_ingredient"]] = new Ingredient($value["id_ingredient"],$value["ing_name"], false, NULL);
+			// Récupération des enfants
+			$query2 = $this->_db->prepare("SELECT id_low_categ FROM has_low_categ WHERE id_ingredient = ".$value["id_ingredient"]);
+			$query2->execute();
+			$ret[$value["id_ingredient"]]->_enfants = array();
+			while(list($id) = $query2->fetch(PDO::FETCH_NUM)) $ret[$value["id_ingredient"]]->_enfants[] = $id;
+			// Récupération des parents
+			$query2 = $this->_db->prepare("SELECT id_super_categ FROM has_super_categ WHERE id_ingredient = ".$value["id_ingredient"]);
+			$query2->execute();
+			$ret[$value["id_ingredient"]]->_parents = array();
+			while(list($id) = $query2->fetch(PDO::FETCH_NUM)) $ret[$value["id_ingredient"]]->_parents[] = $id;
 		}
 		return $ret;
 	}
@@ -107,15 +118,12 @@ class IngredientManager implements DAO{
 
 
 
-
-
-
-
 	public static function getHierarchy($db){
 		$query = $db->prepare("SELECT * FROM ingredient");
 		$query->execute();
 		$hier = [];
 		$ret = [];
+		$var_js = "";
 		foreach ($query->fetchAll() as $key => $value) {
 			$hier[$value["id_ingredient"]] = new Ingredient($value["id_ingredient"],$value["ing_name"],true,NULL);
 		}
@@ -134,7 +142,43 @@ class IngredientManager implements DAO{
 				$ret[] = $value;
 			}
 		}
+		
+		
+		//var_dump($ret[0]);
 		return $ret;
 	}
 
+	public function drawHierarchy($all, $current_id) {
+		$test = "";
+		$ids = "";
+		if (count($all[$current_id]->_parents[0]) != 0) $parent_id = $all[$current_id]->_parents[0];
+		else $parent_id = -1;
+		while ($parent_id != -1) {
+			$test = $all[$parent_id]->_name.";".$test;
+			$ids = $parent_id.";".$ids;
+			if (count($all[$parent_id]->_parents[0]) != 0) $parent_id = $all[$parent_id]->_parents[0];
+			else $parent_id = -1;
+		}
+		$test = explode(";", $test);
+		$ids = explode(";", $ids);
+		
+		echo '<ol class="breadcrumb">';
+		for ($i = 0; $i < count($test) -1; $i++) echo '<li><a onclick=\'$(".middle_container").load("/Cocktailator/ingredients.php", {id_ing : '.$ids[$i].'});\'>'.$test[$i].'</a></li>';
+		echo '<li class="active">'.$all[$current_id]->_name.'</li></ol>';
+	}
+
+	public function getLowerIngredients($all, $current_id) {
+		$res = array();
+		return $all[$current_id]->getLowerElement($all);
+	}
+	
+	public function toHtml($all, $current_id) {
+		$this->drawHierarchy($all, $current_id);
+		echo "Catégories filles : ";
+		foreach($all[$current_id]->_enfants as $id_child) echo '<a onclick=\'$(".middle_container").load("/Cocktailator/ingredients.php", {id_ing : '.$id_child.'});\'>['.$all[$id_child]->_name.'] </a>';
+		echo "<br/>";
+		$cocMan = new cocktailManager($this->_db);
+		$cocktails = $cocMan->allContainingIngredients($this->getLowerIngredients($all, $current_id));
+		foreach ($cocktails as $cocktail) $cocktail->resume();
+	}
 }

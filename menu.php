@@ -14,7 +14,7 @@
 						<li class="divider"></li>
 						<li><a onclick="$('.middle_container').load('/Cocktailator/favoris.php');">Mes favoris</a></li>
 					</ul>
-				<li><a href="#">Ingrédients</a></li>
+				<li><a onclick="$('.middle_container').load('/Cocktailator/ingredients.php');">Ingrédients</a></li>
 			</ul>
 
 			<div class='dropdown' style="float:right;margin-top:6px;">

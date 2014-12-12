@@ -20,7 +20,7 @@ $cocktails = $cocktail_manager->all();
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link href="Heyleon/css/heyleon.css" rel="stylesheet">
-	<link href="css/general.css" rel="stylesheet">
+	<link href="css/general.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="listeIngredients.css">	
 	<script src="js/jquery.js"></script>
 	<script async src="js/functions.js"></script>
 	<script async src="js/bootstrap.min.js "></script>
