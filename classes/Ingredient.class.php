@@ -20,4 +20,31 @@ class Ingredient {
 	}
 
 
+
+	public static function dessinerEnfants(Ingredient $arbre){
+		echo " <ul class='" . ( ($arbre->_racine) ? "racine" : "sous_menus" ) . " '>";
+		if ($arbre->_enfants != NULL){
+			foreach ($arbre->_enfants as $key => $value) {
+				echo "<li class='titre_menu'><a href='#'/>";
+				echo $value->_name;
+				Ingredient::dessinerEnfants($value);
+				echo "</li>";
+			}
+		}
+		echo "</ul>";
+
+	}
+
+	public function toHTML(){
+		?>
+			<div class="ingredient">
+				<h4><?= $this->_name;?> </h4>
+				<div class="enfants">
+					<?php Ingredient::dessinerEnfants($this); ?>
+				</div>
+
+			</div>
+		<?php
+	}
+
 }

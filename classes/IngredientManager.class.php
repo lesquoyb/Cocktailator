@@ -108,19 +108,6 @@ class IngredientManager implements DAO{
 
 
 
-	/*
-	*	Renvoie la liste des ingrédients qui compose un ingrédient
-	*/
-	public function isComposedBy(){
-		$ret = [];
-		$query = $this->_db->prepare("SELECT * FROM ingredient i, has_low_categ h WHERE h.id_ingredient = i.id_ingredient AND h.id_ingredient = $this->_id");
-		$query->execute();
-		foreach ($query->fetchAll() as $key => $value) {
-			$ret[] = new Ingredient($value["id_ingredient"],$value["ing_name"]);
-		}
-		return $ret;
-	}
-
 
 
 
@@ -138,7 +125,7 @@ class IngredientManager implements DAO{
 		$query->execute();
 		foreach ($query->fetchAll() as $key => $value) {
 				$hier[$value["id_ingredient"]]->_racine = false; 
-				$hier[$value["id_super_categ"]]->_enfants[] = &$hier[$value["id_ingredient"]];//on référence ici uniquement les index pour l'instant
+				$hier[$value["id_super_categ"]]->_enfants[] = &$hier[$value["id_ingredient"]];
 		}
 
 		// On cherche les racines
