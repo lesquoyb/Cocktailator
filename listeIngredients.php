@@ -3,28 +3,29 @@
 require_once 'php/functions.php';
 include 'classes/IngredientManager.class.php';
 function dessiner(Ingredient $arbre){
-	echo "<tr>";
+	echo "<ul>";
 	$temp = $arbre;
-	echo $temp->_ing_name;
+	echo "<li>";
+	echo $temp->_name;
+	echo "</li>";
 	if ($temp->_enfants != NULL){
 		foreach ($temp->_enfants as $key => $value) {
-			echo "<td>";
 			dessiner($value);
-			echo "</td>";
 		}
+	
 	}
-
-	echo "</tr>";
+	echo "</ul>";
 
 }
-echo "<table>";
-/*
+
+
+
 foreach(IngredientManager::getHierarchy(connect()) as $racine){
-	var_dump($racine);
-	dessiner($racine);
+	//var_dump($racine);
+	dessiner($racine); 
 } 
-*/
+
 var_dump(IngredientManager::getHierarchy(connect()));
-echo "</table>";
+
 
 ?>

@@ -130,28 +130,24 @@ class IngredientManager implements DAO{
 		$hier = [];
 		$ret = [];
 		foreach ($query->fetchAll() as $key => $value) {
-			$hier[$value["id_ingredient"]] = new Ingredient($value["id_ingredient"],$value["ing_name"],NULL,NULL);
+			$hier[$value["id_ingredient"]] = new Ingredient($value["id_ingredient"],$value["ing_name"],true,NULL);
 		}
-		$query = $db->prepare("SELECT h.id_ingredient,h.id_low_categ,i.ing_name FROM has_low_categ h,ingredient i WHERE h.id_low_categ = i.id_ingredient");
-		$query->execute();
-		foreach ($query->fetchAll() as $key => $value) {
-		 $hier[$value["id_ingredient"]]->_enfants[] = $hier[$value["id_low_categ"]];
-		//	unset($ret[$value["id_ingredient"]]);
-		}
+
+		// On liste tous les enfants de chaque élément
 		$query = $db->prepare("SELECT h.id_ingredient,h.id_super_categ,i.ing_name FROM has_super_categ h,ingredient i WHERE h.id_super_categ = i.id_ingredient");
 		$query->execute();
 		foreach ($query->fetchAll() as $key => $value) {
-				$hier[$value["id_super_categ"]]->_enfants[] = $hier[$value["id_ingredient"]];//addParent($hier[$value["id_super_categ"]]);
+				$hier[$value["id_ingredient"]]->_racine = false; 
+				$hier[$value["id_super_categ"]]->_enfants[] = &$hier[$value["id_ingredient"]];//on référence ici uniquement les index pour l'instant
 		}
 
+		// On cherche les racines
 		foreach ($hier as $key => $value) {
-			if($value->_enfants == NULL){
+			if($value->_racine === true){
 				$ret[] = $value;
 			}
 		}
-		//var_dump($ret);
 		return $ret;
-		//return $ret;
 	}
 
 }
