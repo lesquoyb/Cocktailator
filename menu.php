@@ -16,7 +16,9 @@
 					</ul>
 				<li><a onclick="$('.middle_container').load('/Cocktailator/ingredients.php');">Ingrédients</a></li>
 			</ul>
-
+			
+			<a href="#" style="float:right;margin-top:15px;margin-left:30px;" data-toggle="modal" data-target="#contact">Nous contacter</a>
+			
 			<div class='dropdown' style="float:right;margin-top:6px;">
 				<?php if ( isSession('id', $id) ) { ?>
 					<button class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' href='#' style='font-size:15px;width:100%;'>
@@ -36,6 +38,27 @@
 				<?php } ?>
 			</div>
 			
+					
 		</div>
 	</div>
 </nav>
+
+<div id="contact" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="titre" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="titre">Nous contacter</h4>
+      </div>
+      <div class="modal-body">
+      	Message:<br/>
+        <textarea style="width=auto;heigth:auto;" cols="60" rows="30">
+        </textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <a type="button" class="btn btn-primary" data-dismiss="modal" href="mailto:adresse@mail.com">Envoyer</a>
+      </div>
+    </div>
+  </div> 
+</div>

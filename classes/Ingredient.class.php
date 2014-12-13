@@ -36,12 +36,12 @@ class Ingredient {
 	public function drawHierarchy($all) {
 		$test = "";
 		$ids = "";
-		if (count($this->_parents[0]) != 0) $parent_id = $this->_parents[0];
+		if  ( ( $this->_parents != NULL )  && (count($this->_parents[0]) != 0) ) $parent_id = $this->_parents[0];
 		else $parent_id = -1;
 		while ($parent_id != -1) {
 			$test = $all[$parent_id]->_name.";".$test;
 			$ids = $parent_id.";".$ids;
-			if (count($all[$parent_id]->_parents[0]) != 0) $parent_id = $all[$parent_id]->_parents[0];
+			if ( ( $all[$parent_id]->_parents != NULL )  && (count($all[$parent_id]->_parents[0]) != 0) ) $parent_id = $all[$parent_id]->_parents[0];
 			else $parent_id = -1;
 		}
 		$test = explode(";", $test);
