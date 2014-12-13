@@ -214,4 +214,21 @@ class UserManager implements DAO{
 		return $ret;
 	}
 
+
+	public function addComment($titre, $commentaire, $auteur, $cocktail){
+		echo "INSERT INTO comments (user,cocktail,title,comment) VALUES ($auteur,$cocktail,$titre,$commentaire)";
+		$query = $this->_db->prepare("INSERT INTO comments (user,cocktail,title,comment) VALUES (:aut, :cock, :tit, :com )");
+		$query->bindValue(":aut",$auteur);
+		$query->bindValue(":cock²",$cocktail);
+		$query->bindValue(":tit",$titre);
+		$query->bindValue(":com",$commentaire);
+		$query->execute();
+		if($query->errorCode() != 0){
+		    $errors = $query->errorInfo();
+		    echo($errors[2]);
+		}
+	}
+
+
+
 }

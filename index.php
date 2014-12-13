@@ -25,6 +25,7 @@ $cocktails = $cocktail_manager->all();
 	<script async src="js/functions.js"></script>
 	<script async src="js/bootstrap.min.js "></script>
 	<script async src="js/md5.js"></script>
+	<script src="_commentaires.js"></script>
 	<title>Cocktailator</title>
 	<meta name="keywords" content="cocktail, ator">
 	<meta name="robots" content="index, nofollow" >

@@ -137,4 +137,25 @@ class CocktailManager implements DAO{
 			return $retour;
 	}
 
+
+	/*
+	* Retourne les commentaires associés à $cocktail sous forme html.
+	*/
+	public function commentaires(Cocktail $cocktail){
+		$query =  $this->_db->query("SELECT * from comments , user where cocktail = $cocktail->_id and user = id_user");
+		$com = "";
+		foreach ($query->fetchAll() as $key => $value) { 
+			$com .= "<div class='com'><div class='auteur'>";
+			$com .= $value['user_login'];
+			$com .= "<div class='titre'>";
+			$com .= $value['title'];
+			$com .= "</div>";
+			$com .= $value['comment'];
+			$com .= "</div>";
+
+		}
+
+		return $com;
+	}
+
 }

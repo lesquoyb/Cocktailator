@@ -64,36 +64,42 @@ class Cocktail{
 		$favoris = unserialize($_SESSION['favorite']);
 		if (in_array($this->_id, $favoris)) $fav_span = "<span class='good'> <span class='glyphicon glyphicon-star'></span> Favori </span>";
 		else $fav_span = "<span> <span class='glyphicon glyphicon-star-empty'></span> Favori </span>";
+		require_once "cocktailManager.class.php";
+		require_once dirname(__FILE__) . "/../php/functions.php";
+		$cMan = new CocktailManager(connect());
 		echo 
-		"<div class='cocktail'>
-			<img src='".getPictureFor($this->_cocktail_name)."' />
-			".$fav_span."
-			<div>
-				<h2><span>".$this->_cocktail_name."</span></h2>
-				<img src='/Cocktailator/Graphics/star.png' />
-				<img src='/Cocktailator/Graphics/star.png' />
-				<img src='/Cocktailator/Graphics/star.png' />
-				<img src='/Cocktailator/Graphics/star.png' />
-				<img src='/Cocktailator/Graphics/star.png' />
-			</div><ul class='nav nav-pills nav-justified' role='tablist'>
-				".$ing."
-			</ul>
-			<p>
-				".$this->_cocktail_step."
-			</p>
-		</div>
-		<script>
-			$('.cocktail > span').click(function () {
-				if ($('.cocktail > span').hasClass('good')) {
-					$.post('/Cocktailator/_cocktail/remove_favorite.php', {id_cocktail : ".$this->_id."} );
-					$('.cocktail > span').removeClass('good');
-					$('.cocktail > span > span').addClass('glyphicon-star-empty').removeClass('glyphicon-star');
-				} else {
-					$.post('/Cocktailator/_cocktail/add_favorite.php', { id_cocktail : ".$this->_id."} );
-					$('.cocktail > span').addClass('good');
-					$('.cocktail > span > span').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
-				}
-			});
-		</script>";
+				"<div class='cocktail'>
+					<img src='".getPictureFor($this->_cocktail_name)."' />
+					".$fav_span."
+					<div>
+						<h2><span>".$this->_cocktail_name."</span></h2>
+						<img src='/Cocktailator/Graphics/star.png' />
+						<img src='/Cocktailator/Graphics/star.png' />
+						<img src='/Cocktailator/Graphics/star.png' />
+						<img src='/Cocktailator/Graphics/star.png' />
+						<img src='/Cocktailator/Graphics/star.png' />
+					</div><ul class='nav nav-pills nav-justified' role='tablist'>
+						".$ing."
+					</ul>
+					<p>
+						".$this->_cocktail_step."
+					</p>
+				</div>
+				<div class='commentaires'>
+					" . $cMan->commentaires($this) . "
+				</div>
+				<script>
+					$('.cocktail > span').click(function () {
+						if ($('.cocktail > span').hasClass('good')) {
+							$.post('/Cocktailator/_cocktail/remove_favorite.php', {id_cocktail : ".$this->_id."} );
+							$('.cocktail > span').removeClass('good');
+							$('.cocktail > span > span').addClass('glyphicon-star-empty').removeClass('glyphicon-star');
+						} else {
+							$.post('/Cocktailator/_cocktail/add_favorite.php', { id_cocktail : ".$this->_id."} );
+							$('.cocktail > span').addClass('good');
+							$('.cocktail > span > span').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+						}
+					});
+				</script>";
 	}
 }
