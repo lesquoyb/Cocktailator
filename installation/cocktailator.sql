@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2014 at 12:37 
+-- Generation Time: Dec 14, 2014 at 06:01 
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -157,22 +157,36 @@ INSERT INTO `cocktail` (`id_cocktail`, `cocktail_name`, `cocktail_require`, `coc
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
-  `user` int(10) unsigned NOT NULL,
-  `cocktail` smallint(5) unsigned NOT NULL,
+  `id_user` int(10) unsigned NOT NULL,
+  `id_cocktail` smallint(5) unsigned NOT NULL,
   `title` varchar(50) NOT NULL,
   `comment` text NOT NULL,
-  PRIMARY KEY (`user`,`cocktail`),
-  KEY `id_user` (`user`,`cocktail`),
-  KEY `cocktail` (`cocktail`)
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id_user`,`id_cocktail`,`date`),
+  KEY `id_user` (`id_user`,`id_cocktail`),
+  KEY `cocktail` (`id_cocktail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`user`, `cocktail`, `title`, `comment`) VALUES
-(1, 35, 'nul', 'ce cocktail est bizarre OLOLOLOLOL'),
-(2, 35, 'non !', 'n''importe quoi il RUL3Z ZE WORLD !');
+INSERT INTO `comments` (`id_user`, `id_cocktail`, `title`, `comment`, `date`) VALUES
+(1, 35, 'nul', 'ce cocktail est bizarre OLOLOLOLOL', '0000-00-00 00:00:00'),
+(2, 0, 'encore ?', 'et bah moi je n''aime pas parce que voilà', '2014-12-14 16:21:45'),
+(2, 2, 'fqdgdfghgfb', 'ln f:kqjs dfs', '2014-12-14 17:12:19'),
+(2, 3, 'bon', 'last one', '2014-12-14 17:20:55'),
+(2, 4, 'hahahah', 'lolololololololo', '2014-12-14 17:19:44'),
+(2, 4, 'lmkjlkj', 'hé mais attend', '2014-12-14 17:39:28'),
+(2, 7, 'lol', 'nul à chier ', '2014-12-14 16:07:52'),
+(2, 12, 'lol', 'alors là que dire ... si ce n''est: COOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL ma maman adore ce cocktail, elle en fait tous les jours', '2014-12-14 17:49:35'),
+(2, 26, 'oui oui et oui', 'jacques chirac approved', '2014-12-14 17:53:41'),
+(2, 26, '...', 'Non pas du tout, c''est de la merde !', '2014-12-14 17:53:55'),
+(2, 34, 'hahah', 'lol', '2014-12-14 16:20:24'),
+(2, 35, 'non !', 'n''importe quoi il RUL3Z ZE WORLD !', '0000-00-00 00:00:00'),
+(2, 44, 'lqkjsdfmlqjdfmlj', 'mlkjmljm!fn', '2014-12-14 17:13:44'),
+(2, 45, 'alors', 'par où commencer ? J''adore ce cocktail parce que ...', '2014-12-14 17:46:30'),
+(2, 45, 'et puis aussi', 'Ce cocktail est bon, mais pas que ...', '2014-12-14 17:46:53');
 
 -- --------------------------------------------------------
 
@@ -1571,8 +1585,8 @@ INSERT INTO `user` (`id_user`, `user_login`, `user_name`, `user_password`, `user
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`cocktail`) REFERENCES `cocktail` (`id_cocktail`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`id_cocktail`) REFERENCES `cocktail` (`id_cocktail`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `has_favorite_cocktail`
