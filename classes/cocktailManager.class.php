@@ -146,8 +146,10 @@ class CocktailManager implements DAO{
 	* Retourne les commentaires associés à $cocktail sous forme html.
 	*/
 	public function commentaires(Cocktail $cocktail){
+		try{
 		$query =  $this->_db->query("SELECT user_login, title, comment FROM comments c, user u WHERE id_cocktail = $cocktail->_id AND c.id_user = u.id_user");
 		$com = "";
+		
 		foreach ($query->fetchAll() as $key => $value) { 
 			$com .= "<div class='com'><div class='auteur'>";
 			$com .= $value['user_login'];
@@ -158,7 +160,10 @@ class CocktailManager implements DAO{
 			$com .= "</div>";
 
 		}
-
+	}
+	catch(PDOException $e){
+		echo $e->getMessage();
+	}
 		return $com;
 	}
 
