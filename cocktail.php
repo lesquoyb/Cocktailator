@@ -21,8 +21,8 @@ if (isPost('id_cocktail', $id_cocktail)) {
 		echo $id_cocktail;
 		?>
 			<div class="nouveauCommentaire">
-				<input id="nouvtitre" type="text"/>
-				<textarea id="nouvCom" />
+				<input id="nouvtitre" type="text" class="hidden" value="a">
+				<textarea id="nouvCom" class="form-control" rows="3" style="width:96%;margin:auto;"></textarea>
 				<input style="visibility:hidden;" id='auteur' value="<?= $id ?>" />
 				<input style="visibility:hidden;" id='cocktail' value="<?= $id_cocktail ?>" />
 				<button id="valider" onclick="ajouterCommentaire();" >Valider</button>

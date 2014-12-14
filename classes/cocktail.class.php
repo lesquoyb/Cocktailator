@@ -85,7 +85,7 @@ class Cocktail{
 						".$this->_cocktail_step."
 					</p>
 				</div>
-				<div class='commentaires'>
+				<div class='commentaires' >
 					" . $cMan->commentaires($this) . "
 				</div>
 				<script>

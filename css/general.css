@@ -54,6 +54,33 @@
 	-webkit-padding-start: 17px;
 }
 
+/* COMMENTAIRES */
+.com {
+	width: 96%;
+	margin: auto;
+	border-width: 1px 0px;
+	padding: 5px 8px;
+	background: linear-gradient(rgba(55, 59, 163, 0.07), rgba(55, 59, 163, 0.07));
+	border: 2px solid rgba(0, 0, 0, 0.37);
+	border-top-width: 0px;
+}
+.com:first-child {
+	border-top-width: 2px;
+	border-radius : 8px 8px 0px 0px;
+}
+.com:last-child {
+	border-radius : 0px 0px 8px 8px;
+}
+
+.auteur {
+	font-size: 16px;
+	text-indent: 20px;
+	border: 0px solid #0F0681;
+	border-bottom-width: 1px;
+	margin-bottom: 15px;
+}
+.text-comment {
+}
 
 /* HOME */
 .cocktail_resume {

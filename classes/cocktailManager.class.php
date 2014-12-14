@@ -147,18 +147,15 @@ class CocktailManager implements DAO{
 	*/
 	public function commentaires(Cocktail $cocktail){
 		try{
-		$query =  $this->_db->query("SELECT user_login, title, comment FROM comments c, user u WHERE id_cocktail = $cocktail->_id AND c.id_user = u.id_user");
+		$query =  $this->_db->query("SELECT user_login, title, comment, date FROM comments c, user u WHERE id_cocktail = $cocktail->_id AND c.id_user = u.id_user");
 		$com = "";
 		
 		foreach ($query->fetchAll() as $key => $value) { 
-			$com .= "<div class='com'><div class='auteur'>";
-			$com .= $value['user_login'];
-			$com .= "</div><div class='titre'>";
-			$com .= $value['title'];
-			$com .= "</div>";
-			$com .= $value['comment'];
-			$com .= "</div>";
-
+			$com .= 
+			"<div class='com'>
+				<div class='auteur'>".$value['user_login'].", ".$value['date']."</div>
+				<div class='text-comment'>".$value['comment']."</div>
+			</div>";
 		}
 	}
 	catch(PDOException $e){
