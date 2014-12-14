@@ -38,10 +38,6 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password) ) {
 			header("Location: /Cocktailator/?error=mail_exist");
 			exit();
 		}
-		if (!preg_match( "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", $mail )) {
-		header("Location: /Cocktailator/?error=mail_invalid");
-		exit();
-		}
 	}
 
 	if ($tel != '') {	
