@@ -34,13 +34,9 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password) ) {
 	if ($mail != '') {
 		$query = $dataBase->prepare("SELECT * FROM user WHERE user_mail = ?");
 		$query->execute(array($mail));
-		if ($query->rowCount() == 0) {
+		if ($query->rowCount() != 0) {
 			header("Location: /Cocktailator/?error=mail_exist");
 			exit();
-		}
-		if (!preg_match( "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", $mail )) {
-		header("Location: /Cocktailator/?error=mail_invalid");
-		exit();
 		}
 	}
 
