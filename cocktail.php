@@ -18,14 +18,16 @@ if (isPost('id_cocktail', $id_cocktail)) {
 	
 	$cocktails[0]->toHtml();
 	if (isSession('id',$id)){
-		echo $id_cocktail;
 		?>
+			<br/>
 			<div class="nouveauCommentaire">
+				<h3>Exprimez vous:</h3>
 				<input id="nouvtitre" type="text" class="hidden" value="a">
 				<textarea id="nouvCom" class="form-control" rows="3" style="width:96%;margin:auto;"></textarea>
 				<input style="visibility:hidden;" id='auteur' value="<?= $id ?>" />
 				<input style="visibility:hidden;" id='cocktail' value="<?= $id_cocktail ?>" />
-				<button id="valider" onclick="ajouterCommentaire();" >Valider</button>
+				<center><button id="valider" onclick="ajouterCommentaire();" >Commenter</button></center>
+				<br/>
 			</div>
 	
 		<?php

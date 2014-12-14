@@ -67,9 +67,15 @@ class Cocktail{
 		require_once "cocktailManager.class.php";
 		require_once dirname(__FILE__) . "/../php/functions.php";
 		$cMan = new CocktailManager(connect());
+		
+		$dir = explode('Cocktailator', dirname(__FILE__));
+		$dir = $dir[0].'Cocktailator/';
+		if (file_exists($dir."/data/Photos/".getPictureNameFor($this->_cocktail_name)) ) $url_picture = getPictureFor($this->_cocktail_name);
+		else $url_picture = "/Cocktailator/Graphics/empty_cocktail.jpg";
+		
 		echo 
 				"<div class='cocktail'>
-					<img src='".getPictureFor($this->_cocktail_name)."' />
+					<img src='".$url_picture."' />
 					".$fav_span."
 					<div>
 						<h2><span>".$this->_cocktail_name."</span></h2>

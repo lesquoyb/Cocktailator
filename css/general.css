@@ -55,6 +55,12 @@
 }
 
 /* COMMENTAIRES */
+.commentaires {
+	border-top:3px solid rgba(0, 0, 0, 0.37);
+}
+.com.first{
+	border-top:1px solid;
+}
 .com {
 	width: 96%;
 	margin: auto;
