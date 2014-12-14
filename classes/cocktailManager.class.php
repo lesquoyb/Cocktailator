@@ -138,6 +138,10 @@ class CocktailManager implements DAO{
 	}
 
 
+	public function ajouterIngredient($id_cocktail,$id_ing){
+		$query = $this->_db->exec("INSERT INTO has_ingredient VALUES($id_cocktail,$id_ing)");
+	}
+
 	/*
 	* Retourne les commentaires associés à $cocktail sous forme html.
 	*/

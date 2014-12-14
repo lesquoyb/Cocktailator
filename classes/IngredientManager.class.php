@@ -98,6 +98,17 @@ class IngredientManager implements DAO{
 		return $res["id_ingredient"];
 	}
 
+	public function insertLowCateg($idIng,$idLow){
+		$query = $this->_db->prepare("INSERT INTO has_low_categ VALUES($idIng,$idLow)");
+		$query->execute();
+	}
+
+
+	public function insertSuperCateg($idIng,$idSuper){
+		$query = $this->_db->prepare("INSERT INTO has_super_categ VALUES($idIng,$idSuper)");
+		$query->execute();
+	}
+
 
 	/*
 	* Effectue une selection sur la table selon les critères passés en paramètre

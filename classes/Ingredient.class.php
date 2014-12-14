@@ -9,7 +9,7 @@ class Ingredient {
 	public $_enfants;
 	public $_parents;
 
-	public function __construct($id,$name,$racine,$enfants){
+	public function __construct($id,$name,$racine = false,$enfants = NULL){
 		$this->_name = $name;
 		$this->_id = $id;
 		$this->_racine = $racine;
