@@ -43,7 +43,7 @@ if (isPost('pseudo', $pseudo) && isPost('password', $password) ) {
 	if ($tel != '') {	
 		$query = $dataBase->prepare("SELECT * FROM user WHERE user_phone_num = ?");
 		$query->execute(array($tel));
-		if ($query->rowCount() == 0) {
+		if ($query->rowCount() != 0) {
 			header("Location: /Cocktailator/?error=tel_exist");
 			exit();
 		}
